@@ -1,0 +1,55 @@
+$color-active: #fc99ff;
+
+body {
+    background: #f2f2f2;
+    font-family: 'Open Sans', sans-serif;
+}
+  
+.search {
+    width: 100%;    
+    display: flex;
+}
+  
+.searchTerm {
+    width: 100%;
+    border: 3px solid $color-active;
+    border-right: none;
+    padding: 5px;
+    height: 36px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #9DBFAF;
+}
+
+.searchTerm:focus{
+    color: rgb(0, 0, 0);
+}
+
+.searchButton {
+    width: 40px;
+    height: 36px;
+    border: 1px solid $color-active;
+    background: $color-active;
+    text-align: center;
+    color: transparent;
+    text-shadow: 0 0 0 rgb(255, 255, 255);
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.searchButton:hover {
+    text-shadow: 0 0 0 rgb(155, 146, 155);
+}
+
+.searchButton:active {
+    opacity: .7;
+}
+
+.wrap {
+    width: 30%;  
+    position: relative;
+    margin-top: 2.5em;      
+    left: 50%;    
+    transform: translate(-50%, -50%);
+}
