@@ -1,0 +1,53 @@
+* {
+  box-sizing: border-box;
+}
+
+$color-bg: #000000;
+$color-active: #fc99ff;
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+  background-color: $color-bg;
+  padding: 2rem 0;
+  text-align: center;
+}
+  header > a {
+      color: white;
+      font-size: 1.2em;
+      text-decoration: none;
+      padding: 0 1rem;
+  }
+  header > a:hover {
+      text-decoration: underline;
+  }
+
+h1 {
+  text-align: center;
+  margin-top: 0;
+}
+
+main {
+  min-height: calc(100vh - 110px);
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+  main a {
+      text-decoration: none;
+      color: $color-bg;
+  }
+  main a:hover {
+      text-decoration: underline;
+  }
+
+.active {
+  color: $color-active;
+  cursor: default;
+}
+
+footer {
+  text-align: center;
+}
