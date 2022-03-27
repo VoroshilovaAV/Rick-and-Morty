@@ -6,7 +6,7 @@ class Home extends React.Component {
     return (
       <>
         <h1>Home page</h1>
-        <Search />
+        <Search value={undefined} />
       </>
     );
   }
