@@ -3,6 +3,9 @@ import App from './App';
 import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import Home from './pages/Home/Home';
+import { mockLocalStorage } from './mocks/local-storage-mock';
+
+const { setItemMock } = mockLocalStorage();
 
 describe('test app', () => {
   test('renders home page', () => {
@@ -57,5 +60,21 @@ describe('test app', () => {
     const cardCount = screen.getAllByTestId(/card-component/i);
     const totalCards = 6;
     expect(cardCount).toHaveLength(totalCards);
+  });
+
+  test('expects something to be set in localStorage', () => {
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+    const searchBar = screen.getByPlaceholderText(/Search card/i);
+    const aboutLink = screen.getByTestId('about-link');
+    expect(searchBar).toContainHTML('');
+    fireEvent.input(searchBar, {
+      target: { value: 'testLS' },
+    });
+    userEvent.click(aboutLink);
+    expect(setItemMock).toHaveBeenCalledWith('searchValue', '"testLS"');
   });
 });
