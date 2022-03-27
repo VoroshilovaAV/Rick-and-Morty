@@ -11,7 +11,9 @@ class Search extends React.Component<IProps, IState> {
   }
 
   componentDidMount() {
-    this.setState({ value: JSON.parse(localStorage.getItem('searchValue') || '') });
+    if (localStorage.getItem('searchValue')) {
+      this.setState({ value: JSON.parse(localStorage.getItem('searchValue') || '') });
+    }
   }
 
   componentWillUnmount() {

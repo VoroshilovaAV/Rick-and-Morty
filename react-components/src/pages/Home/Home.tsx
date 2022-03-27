@@ -8,7 +8,7 @@ class Home extends React.Component {
   render() {
     return (
       <>
-        <h1>Home page</h1>
+        <h1 data-testid="home-page">Home page</h1>
         <Search value={undefined} />
         <div className="wrapper">
           {cardsData.map((item) => (

@@ -6,8 +6,12 @@ class AppLayout extends React.Component {
     return (
       <>
         <header>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/about">About us</NavLink>
+          <NavLink to="/" data-testid="home-link">
+            Home
+          </NavLink>
+          <NavLink to="/about" data-testid="about-link">
+            About us
+          </NavLink>
         </header>
         <main>
           <Outlet />
