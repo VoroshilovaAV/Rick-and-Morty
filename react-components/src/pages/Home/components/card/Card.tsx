@@ -1,6 +1,14 @@
 import React from 'react';
-import { ICard } from './interfaces';
 import './index.scss';
+
+export interface ICard {
+  img: string;
+  name: string;
+  description: string;
+  text: string;
+  likes: number;
+  date: string;
+}
 
 class Card extends React.Component<ICard> {
   render() {
