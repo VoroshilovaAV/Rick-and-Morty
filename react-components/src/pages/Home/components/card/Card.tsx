@@ -3,10 +3,6 @@ import { ICard } from './interfaces';
 import './index.scss';
 
 class Card extends React.Component<ICard> {
-  constructor(props: ICard) {
-    super(props);
-  }
-
   render() {
     return (
       <>
