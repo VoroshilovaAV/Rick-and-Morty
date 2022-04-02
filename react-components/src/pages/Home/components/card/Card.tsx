@@ -14,11 +14,8 @@ class Card extends React.Component<ICard> {
   render() {
     return (
       <>
-        <div
-          data-testid="card-component"
-          className="card"
-          style={{ backgroundImage: `url(${this.props.img})` }}
-        >
+        <div data-testid="card-component" className="card">
+          <img src={this.props.img} alt="card image" />
           <div className="title-content">
             <h3>{this.props.name}</h3>
             <hr />
@@ -32,7 +29,6 @@ class Card extends React.Component<ICard> {
             </ul>
           </div>
           <div className="gradient-overlay"></div>
-          <div className="color-overlay"></div>
         </div>
       </>
     );
