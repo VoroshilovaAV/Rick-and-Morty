@@ -31,12 +31,12 @@ class Search extends React.Component<Props, State> {
         <div className="search">
           <input
             type="text"
-            className="searchTerm"
+            className="search__term"
             placeholder="Search card"
             onChange={this.handleChange}
             value={this.state.value}
           />
-          <button type="submit" className="searchButton">
+          <button type="submit" className="search__button">
             &#128269;
           </button>
         </div>

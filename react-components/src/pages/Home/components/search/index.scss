@@ -10,7 +10,7 @@ body {
     display: flex;
 }
   
-.searchTerm {
+.search__term {
     width: 100%;
     border: 3px solid $color-active;
     border-right: none;
@@ -21,11 +21,11 @@ body {
     color: #000000;
 }
 
-.searchTerm:focus{
+.search__term:focus{
     color: rgb(0, 0, 0);
 }
 
-.searchButton {
+.search__button {
     width: 40px;
     height: 36px;
     border: 1px solid $color-active;
@@ -38,11 +38,11 @@ body {
     font-size: 20px;
 }
 
-.searchButton:hover {
+.search__button:hover {
     text-shadow: 0 0 0 rgb(176, 236, 238);
 }
 
-.searchButton:active {
+.search__button:active {
     opacity: .7;
 }
 
