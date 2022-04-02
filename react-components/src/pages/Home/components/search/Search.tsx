@@ -1,11 +1,11 @@
 import React from 'react';
 import './index.scss';
 
-type IProps = { value: string | undefined };
-type IState = { value: string };
+type Props = { value: string | undefined };
+type State = { value: string };
 
-class Search extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
+class Search extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = { value: '' };
   }
