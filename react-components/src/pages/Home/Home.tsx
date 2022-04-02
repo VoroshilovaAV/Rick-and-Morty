@@ -1,8 +1,8 @@
 import React from 'react';
-import './index.scss';
 import Search from './components/search/Search';
 import Card from './components/card/Card';
 import { cardsData } from './components/card/data';
+import './index.scss';
 
 class Home extends React.Component {
   render() {

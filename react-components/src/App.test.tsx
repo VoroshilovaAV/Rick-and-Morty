@@ -1,8 +1,10 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import App from './App';
-import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
+
+import App from './App';
 import Home from './pages/Home/Home';
+
+import { MemoryRouter } from 'react-router-dom';
 import { mockLocalStorage } from './mocks/local-storage-mock';
 
 const { setItemMock } = mockLocalStorage();

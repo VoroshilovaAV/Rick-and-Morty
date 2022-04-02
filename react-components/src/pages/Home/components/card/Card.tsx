@@ -1,6 +1,6 @@
 import React from 'react';
-import './index.scss';
 import { ICard } from './interfaces';
+import './index.scss';
 
 class Card extends React.Component<ICard> {
   constructor(props: ICard) {
