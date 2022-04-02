@@ -12,5 +12,10 @@ export const mockLocalStorage = () => {
     getItemMock.mockRestore();
   });
 
+  afterAll(() => {
+    setItemMock.mockRestore();
+    getItemMock.mockRestore();
+  });
+
   return { setItemMock, getItemMock };
 };
