@@ -10,8 +10,8 @@ function App() {
     <Routes>
       <Route path="/" element={<AppLayout />}>
         <Route index element={<Home />} />
+        <Route path="forms" element={<Forms value={undefined} />} />
         <Route path="about" element={<AboutUs />} />
-        <Route path="forms" element={<Forms />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

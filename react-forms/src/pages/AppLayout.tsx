@@ -7,11 +7,11 @@ export default function AppLayout() {
         <NavLink to="/" data-testid="home-link">
           Home
         </NavLink>
-        <NavLink to="/about" data-testid="about-link">
-          About us
-        </NavLink>
         <NavLink to="/forms" data-testid="forms-link">
           Forms
+        </NavLink>
+        <NavLink to="/about" data-testid="about-link">
+          About us
         </NavLink>
       </header>
       <main>
