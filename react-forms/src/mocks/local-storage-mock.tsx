@@ -1,6 +1,8 @@
 export const mockLocalStorage = () => {
   const setItemMock = jest.fn();
   const getItemMock = jest.fn();
+  const saveStorageSetItem = Storage.prototype.setItem;
+  const saveStorageGetItem = Storage.prototype.getItem;
 
   beforeEach(() => {
     Storage.prototype.setItem = setItemMock;
@@ -13,8 +15,8 @@ export const mockLocalStorage = () => {
   });
 
   afterAll(() => {
-    setItemMock.mockRestore();
-    getItemMock.mockRestore();
+    Storage.prototype.setItem = saveStorageSetItem;
+    Storage.prototype.getItem = saveStorageGetItem;
   });
 
   return { setItemMock, getItemMock };

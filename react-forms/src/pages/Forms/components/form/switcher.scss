@@ -1,10 +1,9 @@
-$color-active: #5f9b96;
-
 .forms__checkbox {
   position: relative;
   display: inline-block;    
   width: 52px;
   height: 27px;
+  margin: 0.6em 2em 0 2em;
 }
 
 .forms__checkbox input {
@@ -20,7 +19,7 @@ $color-active: #5f9b96;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: rgb(104, 200, 245);
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
@@ -38,7 +37,7 @@ $color-active: #5f9b96;
 }
 
 input:checked + .forms__slider {
-  background-color: $color-active;
+  background-color: rgb(245, 153, 232);
 }
 
 input:checked + .forms__slider:before {  
