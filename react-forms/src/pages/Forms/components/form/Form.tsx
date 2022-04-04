@@ -48,7 +48,9 @@ class Form extends React.Component<Props, State> {
     };
   }
 
-  async handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  async handleChange(
+    event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
+  ) {
     const name = event.target.name;
     const value = event.target.value;
     await this.setState((prevState) => ({
@@ -78,6 +80,7 @@ class Form extends React.Component<Props, State> {
     if (this.isNotValidString(this.state.surname)) errors.push('surname');
     if (this.state.date == '' || inputDate > today || inputDate < new Date('1900-01-01').valueOf())
       errors.push('date');
+    if (this.state.country == '') errors.push('country');
     this.setState({ validateData: errors });
   }
 
@@ -125,15 +128,24 @@ class Form extends React.Component<Props, State> {
               Country:
               <br />
             </label>
-            <select id="input__country" ref={this.countryInput}>
-              <option value="usa">USA</option>
+            <select
+              id="input__country"
+              name="country"
+              onChange={this.handleChange}
+              ref={this.countryInput}
+            >
+              <option value="usa"> USA</option>
               <option value="russia">Russia</option>
               <option value="belarus">Belarus</option>
               <option value="ukraine">Ukraine</option>
               <option value="poland">Poland</option>
               <option value="uk">UK</option>
             </select>
-            <br />
+            {this.state.validateData.includes('country') ? (
+              <p className="forms__name_error">enter a country</p>
+            ) : (
+              <p className="forms__name_hide">hide</p>
+            )}
             <label htmlFor="forms__file__input" className="forms__file">
               Upload an avatar
               <input type="file" id="forms__file__input" ref={this.fileInput} />
