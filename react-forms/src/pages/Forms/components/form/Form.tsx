@@ -70,13 +70,14 @@ class Form extends React.Component<Props, State> {
 
   validate() {
     const errors = [];
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
+    const inputDate = Date.parse(this.state.date);
     this.setState({ validateData: [''] });
-    if (this.isNotValidString(this.state.name)) {
-      errors.push('name');
-    }
-    if (this.isNotValidString(this.state.surname)) {
-      errors.push('surname');
-    }
+    if (this.isNotValidString(this.state.name)) errors.push('name');
+    if (this.isNotValidString(this.state.surname)) errors.push('surname');
+    if (this.state.date == '' || inputDate > today || inputDate < new Date('1900-01-01').valueOf())
+      errors.push('date');
     this.setState({ validateData: errors });
   }
 
@@ -90,7 +91,7 @@ class Form extends React.Component<Props, State> {
               <br />
               <input type="text" ref={this.nameInput} name="name" onChange={this.handleChange} />
               {this.state.validateData.includes('name') ? (
-                <p className="forms__name_error">please enter a valid name</p>
+                <p className="forms__name_error">enter a valid name</p>
               ) : (
                 <p className="forms__name_hide">hide</p>
               )}
@@ -105,7 +106,7 @@ class Form extends React.Component<Props, State> {
                 onChange={this.handleChange}
               />
               {this.state.validateData.includes('surname') ? (
-                <p className="forms__name_error">please enter a valid surname</p>
+                <p className="forms__name_error">enter a valid surname</p>
               ) : (
                 <p className="forms__name_hide">hide</p>
               )}
@@ -113,9 +114,13 @@ class Form extends React.Component<Props, State> {
             <label className="forms__date">
               Date of Birth:
               <br />
-              <input type="date" name="date" ref={this.dateInput} />
+              <input type="date" name="date" ref={this.dateInput} onChange={this.handleChange} />
+              {this.state.validateData.includes('date') ? (
+                <p className="forms__name_error">enter a valid date</p>
+              ) : (
+                <p className="forms__name_hide">hide</p>
+              )}
             </label>
-            <br />
             <label htmlFor="input__country" className="forms__country">
               Country:
               <br />
