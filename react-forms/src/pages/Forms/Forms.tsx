@@ -10,6 +10,7 @@ export interface FormState {
   gender: string;
   validateData: Array<string>;
   isDisabled: boolean;
+  message: string;
 }
 
 class Forms extends React.Component {

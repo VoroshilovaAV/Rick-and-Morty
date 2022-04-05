@@ -37,6 +37,7 @@ class Form extends React.Component<Props, FormState> {
       gender: 'man',
       validateData: [],
       isDisabled: true,
+      message: '',
     };
   }
 
@@ -66,7 +67,15 @@ class Form extends React.Component<Props, FormState> {
   async handleSubmit(event: { preventDefault: () => void }) {
     event.preventDefault();
     await this.validate();
-    if (this.state.validateData.length !== 0) this.setState({ isDisabled: true });
+    if (this.state.validateData.length !== 0) {
+      this.setState({ isDisabled: true });
+    } else {
+      this.form.current?.reset();
+      this.setState({ message: 'ok' });
+      setTimeout(() => {
+        this.setState({ message: '' });
+      }, 2500);
+    }
   }
 
   isNotValidString(testString: string) {
@@ -201,6 +210,11 @@ class Form extends React.Component<Props, FormState> {
               className="forms__submit"
               disabled={this.state.isDisabled}
             />
+            {this.state.message.includes('ok') ? (
+              <p className="forms__name_ok">data saved successfully</p>
+            ) : (
+              <p className="forms__name_hide">hide</p>
+            )}
           </fieldset>
         </form>
       </>
