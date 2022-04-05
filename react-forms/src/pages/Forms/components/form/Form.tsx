@@ -4,7 +4,7 @@ import './switcher.scss';
 import './input-file.scss';
 import { FormState } from '../../Forms';
 
-type Props = { value: undefined };
+type Props = { setFormState: (currentCard: FormState) => void };
 
 class Form extends React.Component<Props, FormState> {
   nameInput: React.RefObject<HTMLInputElement>;
@@ -75,6 +75,7 @@ class Form extends React.Component<Props, FormState> {
       setTimeout(() => {
         this.setState({ message: '' });
       }, 2500);
+      this.props.setFormState(this.state);
     }
   }
 

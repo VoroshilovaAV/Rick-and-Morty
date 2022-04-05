@@ -1,5 +1,6 @@
 import React from 'react';
 import Form from './components/form/Form';
+import Subscriber from './components/subscriber/Subscriber';
 
 export interface FormState {
   name: string;
@@ -13,18 +14,30 @@ export interface FormState {
   message: string;
 }
 
-class Forms extends React.Component {
-  state = { cards: [] };
+type Props = { value: undefined };
+type State = { subscribers: Array<FormState> };
+
+class Forms extends React.Component<Props, State> {
+  constructor(props: Props | Readonly<Props>) {
+    super(props);
+    this.state = { subscribers: [] };
+  }
 
   setFormState(currentCard: FormState) {
-    return this.setState({ cards: [...this.state.cards, currentCard] });
+    //console.log(...this.state.subscribers);
+    this.setState({ subscribers: [...this.state.subscribers, currentCard] });
   }
 
   render() {
     return (
       <>
         <h1 data-testid="forms-page">Create a subscriber card</h1>
-        <Form value={undefined} />
+        <Form setFormState={this.setFormState} />
+        <div className="wrapper">
+          {this.state.subscribers.map((item: FormState, index: number) => {
+            return <Subscriber item={item} key={index} />;
+          })}
+        </div>
       </>
     );
   }
