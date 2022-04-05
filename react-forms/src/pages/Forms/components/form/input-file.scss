@@ -20,6 +20,19 @@
   background: rgb(161, 159, 159);  
 }
 
+.forms__file_red {
+  width: 10em;
+  height: 2.8em;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+  display: block;
+  font: 14px/40px Tahoma; 
+  transition: all 0.2s ease-in-out;  
+  color: rgb(243, 57, 57);
+  background: rgb(214, 205, 205);  
+}
+
 .forms__file_select {
   width: 10em;
   height: 2.8em;

@@ -32,58 +32,61 @@ class Form extends React.Component<Props, FormState> {
       name: '',
       surname: '',
       date: '',
-      country: '',
+      country: 'usa',
       file: '',
       gender: 'man',
-      validateData: [''],
+      validateData: [],
       isDisabled: true,
     };
   }
 
-  handleChange(event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) {
+  async handleChange(
+    event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
+  ) {
     const name = event.target.name;
     let value = event.target.value;
     if (name == 'gender') {
       value = this.genderInput.current?.checked ? 'women' : 'man';
     }
-    this.setState((prevState) => ({
+    await this.setState((prevState) => ({
       ...prevState,
       [name]: value,
-      isDisabled: false,
     }));
+    this.state.validateData.length !== 0
+      ? await this.validate()
+      : this.setState({ isDisabled: false });
   }
 
-  handleChangeImg(event: React.ChangeEvent<HTMLInputElement>) {
-    event.preventDefault();
+  async handleChangeImg(event: React.ChangeEvent<HTMLInputElement>) {
     const imgFile = event.target.files;
-    console.log(imgFile ? URL.createObjectURL(imgFile[0]) : '');
-    this.setState({ file: imgFile ? URL.createObjectURL(imgFile[0]) : '' });
+    await this.setState({ file: imgFile ? URL.createObjectURL(imgFile[0]) : '' });
+    if (this.state.validateData.length !== 0) await this.validate();
   }
 
   async handleSubmit(event: { preventDefault: () => void }) {
     event.preventDefault();
     await this.validate();
-    console.log(this.state);
+    if (this.state.validateData.length !== 0) this.setState({ isDisabled: true });
   }
 
   isNotValidString(testString: string) {
     return testString.length < 3 || testString.length > 15 || !/^[a-zA-Z]+$/.test(testString);
   }
 
-  validate() {
+  async validate() {
     const errors = [];
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
     const inputDate = Date.parse(this.state.date);
-    this.setState({ validateData: [''] });
+    this.setState({ validateData: [] });
     if (this.isNotValidString(this.state.name)) errors.push('name');
     if (this.isNotValidString(this.state.surname)) errors.push('surname');
     if (this.state.date == '' || inputDate > today || inputDate < new Date('1900-01-01').valueOf())
       errors.push('date');
-    if (this.state.country == '') errors.push('country');
-    if (!this.checkboxInput.current?.checked) errors.push('checkbox');
+    if (!this.checkboxInput.current?.checked) errors.push('agree');
     if (this.state.file == '') errors.push('file');
-    this.setState({ validateData: errors });
+    await this.setState({ validateData: errors });
+    if (this.state.validateData.length == 0) this.setState({ isDisabled: false });
   }
 
   render() {
@@ -136,21 +139,23 @@ class Form extends React.Component<Props, FormState> {
               onChange={this.handleChange}
               ref={this.countryInput}
             >
-              <option value="usa"> USA</option>
+              <option value="usa">USA</option>
               <option value="russia">Russia</option>
               <option value="belarus">Belarus</option>
               <option value="ukraine">Ukraine</option>
               <option value="poland">Poland</option>
               <option value="uk">UK</option>
             </select>
-            {this.state.validateData.includes('country') ? (
-              <p className="forms__name_error">enter a country</p>
-            ) : (
-              <p className="forms__name_hide">hide</p>
-            )}
+            <br />
             <label
               htmlFor="forms__file__input"
-              className={this.state.file ? 'forms__file_select' : 'forms__file'}
+              className={
+                this.state.file
+                  ? 'forms__file_select'
+                  : this.state.validateData.includes('file')
+                  ? 'forms__file_red'
+                  : 'forms__file'
+              }
             >
               {this.state.file ? 'Avatar selected' : 'Upload an avatar'}
               <input
@@ -180,11 +185,11 @@ class Form extends React.Component<Props, FormState> {
             <label className="forms__checkbox_last">
               <input
                 type="checkbox"
-                name="checkbox"
+                name="agree"
                 ref={this.checkboxInput}
                 onChange={this.handleChange}
               />
-              {this.state.validateData.includes('checkbox') ? (
+              {this.state.validateData.includes('agree') ? (
                 <p className="forms__name_error">click here</p>
               ) : (
                 <p className="forms__name_hide">hide</p>
