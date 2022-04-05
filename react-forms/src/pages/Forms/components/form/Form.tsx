@@ -32,9 +32,9 @@ class Form extends React.Component<Props, FormState> {
       name: '',
       surname: '',
       date: '',
-      country: 'usa',
+      country: 'USA',
       file: '',
-      gender: 'man',
+      gender: 'Man',
       validateData: [],
       isDisabled: true,
       message: '',
@@ -47,7 +47,7 @@ class Form extends React.Component<Props, FormState> {
     const name = event.target.name;
     let value = event.target.value;
     if (name == 'gender') {
-      value = this.genderInput.current?.checked ? 'women' : 'man';
+      value = this.genderInput.current?.checked ? 'Women' : 'Man';
     }
     await this.setState((prevState) => ({
       ...prevState,
@@ -76,6 +76,7 @@ class Form extends React.Component<Props, FormState> {
         this.setState({ message: '' });
       }, 2500);
       this.props.setFormState(this.state);
+      this.setState({ file: '' });
     }
   }
 
@@ -149,12 +150,12 @@ class Form extends React.Component<Props, FormState> {
               onChange={this.handleChange}
               ref={this.countryInput}
             >
-              <option value="usa">USA</option>
-              <option value="russia">Russia</option>
-              <option value="belarus">Belarus</option>
-              <option value="ukraine">Ukraine</option>
-              <option value="poland">Poland</option>
-              <option value="uk">UK</option>
+              <option value="USA">USA</option>
+              <option value="Russia">Russia</option>
+              <option value="Belarus">Belarus</option>
+              <option value="Ukraine">Ukraine</option>
+              <option value="Poland">Poland</option>
+              <option value="UK">UK</option>
             </select>
             <br />
             <label
