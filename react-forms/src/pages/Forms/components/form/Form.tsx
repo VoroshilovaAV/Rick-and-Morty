@@ -2,20 +2,11 @@ import React, { LegacyRef } from 'react';
 import './form.scss';
 import './switcher.scss';
 import './input-file.scss';
+import { FormState } from '../../Forms';
 
 type Props = { value: undefined };
-type State = {
-  name: string;
-  surname: string;
-  date: string;
-  country: string;
-  file: string;
-  gender: string;
-  validateData: Array<string>;
-  isDisabled: boolean;
-};
 
-class Form extends React.Component<Props, State> {
+class Form extends React.Component<Props, FormState> {
   nameInput: React.RefObject<HTMLInputElement>;
   surnameInput: React.RefObject<HTMLInputElement>;
   dateInput: React.RefObject<HTMLInputElement>;
@@ -28,6 +19,7 @@ class Form extends React.Component<Props, State> {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleChangeImg = this.handleChangeImg.bind(this);
     this.form = React.createRef();
     this.nameInput = React.createRef();
     this.surnameInput = React.createRef();
@@ -42,27 +34,35 @@ class Form extends React.Component<Props, State> {
       date: '',
       country: '',
       file: '',
-      gender: '',
+      gender: 'man',
       validateData: [''],
       isDisabled: true,
     };
   }
 
-  async handleChange(
-    event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
-  ) {
+  handleChange(event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) {
     const name = event.target.name;
-    const value = event.target.value;
-    await this.setState((prevState) => ({
+    let value = event.target.value;
+    if (name == 'gender') {
+      value = this.genderInput.current?.checked ? 'women' : 'man';
+    }
+    this.setState((prevState) => ({
       ...prevState,
       [name]: value,
       isDisabled: false,
     }));
   }
 
-  async handleSubmit(event: { preventDefault: () => void }) {
-    await this.validate();
+  handleChangeImg(event: React.ChangeEvent<HTMLInputElement>) {
     event.preventDefault();
+    const imgFile = event.target.files;
+    console.log(imgFile ? URL.createObjectURL(imgFile[0]) : '');
+    this.setState({ file: imgFile ? URL.createObjectURL(imgFile[0]) : '' });
+  }
+
+  async handleSubmit(event: { preventDefault: () => void }) {
+    event.preventDefault();
+    await this.validate();
     console.log(this.state);
   }
 
@@ -81,6 +81,8 @@ class Form extends React.Component<Props, State> {
     if (this.state.date == '' || inputDate > today || inputDate < new Date('1900-01-01').valueOf())
       errors.push('date');
     if (this.state.country == '') errors.push('country');
+    if (!this.checkboxInput.current?.checked) errors.push('checkbox');
+    if (this.state.file == '') errors.push('file');
     this.setState({ validateData: errors });
   }
 
@@ -146,16 +148,29 @@ class Form extends React.Component<Props, State> {
             ) : (
               <p className="forms__name_hide">hide</p>
             )}
-            <label htmlFor="forms__file__input" className="forms__file">
-              Upload an avatar
-              <input type="file" id="forms__file__input" ref={this.fileInput} />
+            <label
+              htmlFor="forms__file__input"
+              className={this.state.file ? 'forms__file_select' : 'forms__file'}
+            >
+              {this.state.file ? 'Avatar selected' : 'Upload an avatar'}
+              <input
+                type="file"
+                name="file"
+                id="forms__file__input"
+                onChange={this.handleChangeImg}
+                ref={this.fileInput}
+              />
             </label>
-            <br />
-            <span>Gender:</span>
+            <span className="forms__text">Gender:</span>
             <div>
               <span>&nbsp;&nbsp;Man&nbsp;&nbsp;</span>
               <label className="forms__checkbox">
-                <input type="checkbox" ref={this.genderInput} />
+                <input
+                  name="gender"
+                  type="checkbox"
+                  ref={this.genderInput}
+                  onChange={this.handleChange}
+                />
                 <span className="forms__slider round"></span>
               </label>
               <span>Woman</span>
@@ -163,9 +178,18 @@ class Form extends React.Component<Props, State> {
             <br />
             <span>I agree to the processing of personal data:</span>
             <label className="forms__checkbox_last">
-              <input type="checkbox" ref={this.checkboxInput} />
+              <input
+                type="checkbox"
+                name="checkbox"
+                ref={this.checkboxInput}
+                onChange={this.handleChange}
+              />
+              {this.state.validateData.includes('checkbox') ? (
+                <p className="forms__name_error">click here</p>
+              ) : (
+                <p className="forms__name_hide">hide</p>
+              )}
             </label>
-            <br />
             <input
               type="submit"
               value="Submit"

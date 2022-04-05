@@ -9,7 +9,7 @@ export interface FormState {
   file: string;
   gender: string;
   validateData: Array<string>;
-  isButtonDisabled: boolean;
+  isDisabled: boolean;
 }
 
 class Forms extends React.Component {
