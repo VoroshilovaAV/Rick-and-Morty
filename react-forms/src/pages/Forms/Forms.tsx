@@ -20,11 +20,13 @@ type State = { subscribers: Array<FormState> };
 class Forms extends React.Component<Props, State> {
   constructor(props: Props | Readonly<Props>) {
     super(props);
-    this.state = { subscribers: [] };
+    this.setFormState = this.setFormState.bind(this);
+    this.state = {
+      subscribers: [],
+    };
   }
 
   setFormState(currentCard: FormState) {
-    //console.log(...this.state.subscribers);
     this.setState({ subscribers: [...this.state.subscribers, currentCard] });
   }
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import './index.scss';
-import gambit from '../../../../assets/img/gambit.png';
 import { FormState } from '../../Forms';
 
 type Props = { item: FormState; key: number };
@@ -11,7 +10,7 @@ class Subscriber extends React.Component<Props> {
       <>
         <div className="wrapper">
           <div className="subscriber">
-            <img className="subscriber__img" src={gambit} alt="avatar" />
+            <img className="subscriber__img" src={this.props.item.file} alt="avatar" />
             <div className="subscriber__info">
               <h4 className="subscriber__name">
                 {this.props.item.name} {this.props.item.surname}
