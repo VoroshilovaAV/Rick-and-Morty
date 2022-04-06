@@ -9,9 +9,6 @@ export interface FormState {
   country: string;
   file: string;
   gender: string;
-  validateData: Array<string>;
-  isDisabled: boolean;
-  message: string;
 }
 
 type Props = { value: undefined };

@@ -1,17 +1,22 @@
-import React, { LegacyRef } from 'react';
+import React from 'react';
 import './form.scss';
 import './switcher.scss';
 import './input-file.scss';
 import { FormState } from '../../Forms';
 
 type Props = { setFormState: (currentCard: FormState) => void };
+type State = {
+  country: string;
+  file: string;
+  validateData: Array<string>;
+  isDisabled: boolean;
+  message: string;
+};
 
-class Form extends React.Component<Props, FormState> {
+class Form extends React.Component<Props, State> {
   nameInput: React.RefObject<HTMLInputElement>;
   surnameInput: React.RefObject<HTMLInputElement>;
   dateInput: React.RefObject<HTMLInputElement>;
-  countryInput: LegacyRef<HTMLSelectElement>;
-  fileInput: React.RefObject<HTMLInputElement>;
   genderInput: React.RefObject<HTMLInputElement>;
   checkboxInput: React.RefObject<HTMLInputElement>;
   form: React.RefObject<HTMLFormElement>;
@@ -19,43 +24,38 @@ class Form extends React.Component<Props, FormState> {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSelect = this.handleChange.bind(this);
     this.handleChangeImg = this.handleChangeImg.bind(this);
     this.form = React.createRef();
     this.nameInput = React.createRef();
     this.surnameInput = React.createRef();
     this.dateInput = React.createRef();
-    this.countryInput = React.createRef();
-    this.fileInput = React.createRef();
     this.genderInput = React.createRef();
     this.checkboxInput = React.createRef();
     this.state = {
-      name: '',
-      surname: '',
-      date: '',
       country: 'USA',
       file: '',
-      gender: 'Man',
       validateData: [],
       isDisabled: true,
       message: '',
     };
   }
 
-  async handleChange(
-    event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
-  ) {
+  async handleChange() {
+    this.state.validateData.length !== 0
+      ? await this.validate()
+      : this.setState({ isDisabled: false });
+  }
+
+  async handleSelect(event: React.ChangeEvent<HTMLSelectElement>) {
+    console.log();
     const name = event.target.name;
-    let value = event.target.value;
-    if (name == 'gender') {
-      value = this.genderInput.current?.checked ? 'Women' : 'Man';
-    }
+    const value = event.target.value;
     await this.setState((prevState) => ({
       ...prevState,
       [name]: value,
     }));
-    this.state.validateData.length !== 0
-      ? await this.validate()
-      : this.setState({ isDisabled: false });
+    this.handleChange();
   }
 
   async handleChangeImg(event: React.ChangeEvent<HTMLInputElement>) {
@@ -70,29 +70,47 @@ class Form extends React.Component<Props, FormState> {
     if (this.state.validateData.length !== 0) {
       this.setState({ isDisabled: true });
     } else {
+      const CardState = {
+        name: this.nameInput.current?.value ? this.nameInput.current?.value : '',
+        surname: this.surnameInput.current?.value ? this.surnameInput.current?.value : '',
+        date: this.dateInput.current?.value ? this.dateInput.current?.value : '',
+        country: this.state.country,
+        file: this.state.file,
+        gender: this.genderInput.current?.checked ? 'Women' : 'Man',
+      };
       this.form.current?.reset();
       this.setState({ message: 'ok' });
       setTimeout(() => {
         this.setState({ message: '' });
       }, 2500);
-      this.props.setFormState(this.state);
+      this.props.setFormState(CardState);
       this.setState({ file: '' });
     }
   }
 
-  isNotValidString(testString: string) {
-    return testString.length < 3 || testString.length > 15 || !/^[a-zA-Z]+$/.test(testString);
+  isNotValidString(testString: string | undefined) {
+    if (testString)
+      return testString.length < 3 || testString.length > 15 || !/^[a-zA-Z]+$/.test(testString);
   }
 
   async validate() {
     const errors = [];
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
-    const inputDate = Date.parse(this.state.date);
+    const inputDate = Date.parse(this.dateInput.current?.value || '');
     this.setState({ validateData: [] });
-    if (this.isNotValidString(this.state.name)) errors.push('name');
-    if (this.isNotValidString(this.state.surname)) errors.push('surname');
-    if (this.state.date == '' || inputDate > today || inputDate < new Date('1900-01-01').valueOf())
+    if (this.isNotValidString(this.nameInput.current?.value) || this.nameInput.current?.value == '')
+      errors.push('name');
+    if (
+      this.isNotValidString(this.surnameInput.current?.value) ||
+      this.surnameInput.current?.value == ''
+    )
+      errors.push('surname');
+    if (
+      this.dateInput.current?.value == '' ||
+      inputDate > today ||
+      inputDate < new Date('1900-01-01').valueOf()
+    )
       errors.push('date');
     if (!this.checkboxInput.current?.checked) errors.push('agree');
     if (this.state.file == '') errors.push('file');
@@ -108,7 +126,7 @@ class Form extends React.Component<Props, FormState> {
             <label className="forms__name">
               Name:
               <br />
-              <input type="text" ref={this.nameInput} name="name" onChange={this.handleChange} />
+              <input type="text" ref={this.nameInput} onChange={this.handleChange} />
               {this.state.validateData.includes('name') ? (
                 <p className="forms__name_error">enter a valid name</p>
               ) : (
@@ -118,12 +136,7 @@ class Form extends React.Component<Props, FormState> {
             <label className="forms__surname">
               Surname:
               <br />
-              <input
-                type="text"
-                ref={this.surnameInput}
-                name="surname"
-                onChange={this.handleChange}
-              />
+              <input type="text" ref={this.surnameInput} onChange={this.handleChange} />
               {this.state.validateData.includes('surname') ? (
                 <p className="forms__name_error">enter a valid surname</p>
               ) : (
@@ -133,7 +146,7 @@ class Form extends React.Component<Props, FormState> {
             <label className="forms__date">
               Date of Birth:
               <br />
-              <input type="date" name="date" ref={this.dateInput} onChange={this.handleChange} />
+              <input type="date" ref={this.dateInput} onChange={this.handleChange} />
               {this.state.validateData.includes('date') ? (
                 <p className="forms__name_error">enter a valid date</p>
               ) : (
@@ -144,12 +157,7 @@ class Form extends React.Component<Props, FormState> {
               Country:
               <br />
             </label>
-            <select
-              id="input__country"
-              name="country"
-              onChange={this.handleChange}
-              ref={this.countryInput}
-            >
+            <select id="input__country" name="country" onChange={this.handleSelect}>
               <option value="USA">USA</option>
               <option value="Russia">Russia</option>
               <option value="Belarus">Belarus</option>
@@ -169,24 +177,13 @@ class Form extends React.Component<Props, FormState> {
               }
             >
               {this.state.file ? 'Avatar selected' : 'Upload an avatar'}
-              <input
-                type="file"
-                name="file"
-                id="forms__file__input"
-                onChange={this.handleChangeImg}
-                ref={this.fileInput}
-              />
+              <input type="file" id="forms__file__input" onChange={this.handleChangeImg} />
             </label>
             <span className="forms__text">Gender:</span>
             <div>
               <span>&nbsp;&nbsp;Man&nbsp;&nbsp;</span>
               <label className="forms__checkbox">
-                <input
-                  name="gender"
-                  type="checkbox"
-                  ref={this.genderInput}
-                  onChange={this.handleChange}
-                />
+                <input type="checkbox" ref={this.genderInput} onChange={this.handleChange} />
                 <span className="forms__slider round"></span>
               </label>
               <span>Woman</span>
@@ -194,12 +191,7 @@ class Form extends React.Component<Props, FormState> {
             <br />
             <span>I agree to the processing of personal data:</span>
             <label className="forms__checkbox_last">
-              <input
-                type="checkbox"
-                name="agree"
-                ref={this.checkboxInput}
-                onChange={this.handleChange}
-              />
+              <input type="checkbox" ref={this.checkboxInput} onChange={this.handleChange} />
               {this.state.validateData.includes('agree') ? (
                 <p className="forms__name_error">click here</p>
               ) : (
