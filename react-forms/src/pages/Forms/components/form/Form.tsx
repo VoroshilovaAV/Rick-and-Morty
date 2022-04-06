@@ -3,6 +3,7 @@ import './form.scss';
 import './switcher.scss';
 import './input-file.scss';
 import { FormState } from '../../Forms';
+import ErrorMessage from '../error/ErrorMessage';
 
 type Props = { setFormState: (currentCard: FormState) => void };
 type State = {
@@ -13,7 +14,7 @@ type State = {
   message: string;
 };
 
-class Form extends React.Component<Props, State> {
+export default class Form extends React.Component<Props, State> {
   nameInput: React.RefObject<HTMLInputElement>;
   surnameInput: React.RefObject<HTMLInputElement>;
   dateInput: React.RefObject<HTMLInputElement>;
@@ -24,7 +25,6 @@ class Form extends React.Component<Props, State> {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleSelect = this.handleChange.bind(this);
     this.handleChangeImg = this.handleChangeImg.bind(this);
     this.form = React.createRef();
     this.nameInput = React.createRef();
@@ -41,21 +41,20 @@ class Form extends React.Component<Props, State> {
     };
   }
 
-  async handleChange() {
+  async handleChange(
+    event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
+  ) {
+    const name = event.target.name;
+    if (name == 'country') {
+      const value = event.target.value;
+      await this.setState((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
     this.state.validateData.length !== 0
       ? await this.validate()
       : this.setState({ isDisabled: false });
-  }
-
-  async handleSelect(event: React.ChangeEvent<HTMLSelectElement>) {
-    console.log();
-    const name = event.target.name;
-    const value = event.target.value;
-    await this.setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-    this.handleChange();
   }
 
   async handleChangeImg(event: React.ChangeEvent<HTMLInputElement>) {
@@ -127,37 +126,25 @@ class Form extends React.Component<Props, State> {
               Name:
               <br />
               <input type="text" ref={this.nameInput} onChange={this.handleChange} />
-              {this.state.validateData.includes('name') ? (
-                <p className="forms__name_error">enter a valid name</p>
-              ) : (
-                <p className="forms__name_hide">hide</p>
-              )}
+              <ErrorMessage validateData={this.state.validateData} input="name" />
             </label>
             <label className="forms__surname">
               Surname:
               <br />
               <input type="text" ref={this.surnameInput} onChange={this.handleChange} />
-              {this.state.validateData.includes('surname') ? (
-                <p className="forms__name_error">enter a valid surname</p>
-              ) : (
-                <p className="forms__name_hide">hide</p>
-              )}
+              <ErrorMessage validateData={this.state.validateData} input="surname" />
             </label>
             <label className="forms__date">
               Date of Birth:
               <br />
               <input type="date" ref={this.dateInput} onChange={this.handleChange} />
-              {this.state.validateData.includes('date') ? (
-                <p className="forms__name_error">enter a valid date</p>
-              ) : (
-                <p className="forms__name_hide">hide</p>
-              )}
+              <ErrorMessage validateData={this.state.validateData} input="date" />
             </label>
             <label htmlFor="input__country" className="forms__country">
               Country:
               <br />
             </label>
-            <select id="input__country" name="country" onChange={this.handleSelect}>
+            <select id="input__country" name="country" onChange={this.handleChange}>
               <option value="USA">USA</option>
               <option value="Russia">Russia</option>
               <option value="Belarus">Belarus</option>
@@ -192,11 +179,7 @@ class Form extends React.Component<Props, State> {
             <span>I agree to the processing of personal data:</span>
             <label className="forms__checkbox_last">
               <input type="checkbox" ref={this.checkboxInput} onChange={this.handleChange} />
-              {this.state.validateData.includes('agree') ? (
-                <p className="forms__name_error">click here</p>
-              ) : (
-                <p className="forms__name_hide">hide</p>
-              )}
+              <ErrorMessage validateData={this.state.validateData} input="agree" />
             </label>
             <input
               type="submit"
@@ -215,5 +198,3 @@ class Form extends React.Component<Props, State> {
     );
   }
 }
-
-export default Form;
