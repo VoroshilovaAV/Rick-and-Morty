@@ -1,9 +1,9 @@
 import React from 'react';
+import { FormState } from '../../Forms';
+import ErrorMessage from '../error/ErrorMessage';
 import './form.scss';
 import './switcher.scss';
 import './input-file.scss';
-import { FormState } from '../../Forms';
-import ErrorMessage from '../error/ErrorMessage';
 
 type Props = { setFormState: (currentCard: FormState) => void };
 type State = {
