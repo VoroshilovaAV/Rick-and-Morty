@@ -69,7 +69,7 @@ export default class Form extends React.Component<Props, State> {
     if (this.state.validateData.length !== 0) {
       this.setState({ isDisabled: true });
     } else {
-      const CardState = {
+      const cardState = {
         name: this.nameInput.current?.value ? this.nameInput.current?.value : '',
         surname: this.surnameInput.current?.value ? this.surnameInput.current?.value : '',
         date: this.dateInput.current?.value ? this.dateInput.current?.value : '',
@@ -82,14 +82,20 @@ export default class Form extends React.Component<Props, State> {
       setTimeout(() => {
         this.setState({ message: '' });
       }, 2500);
-      this.props.setFormState(CardState);
+      this.props.setFormState(cardState);
       this.setState({ file: '' });
     }
   }
 
   isNotValidString(testString: string | undefined) {
+    const minLength = 3;
+    const maxLength = 15;
     if (testString)
-      return testString.length < 3 || testString.length > 15 || !/^[a-zA-Z]+$/.test(testString);
+      return (
+        testString.length < minLength ||
+        testString.length > maxLength ||
+        !/^[a-zA-Z]+$/.test(testString)
+      );
   }
 
   async validate() {
