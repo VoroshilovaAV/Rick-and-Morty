@@ -58,7 +58,7 @@ export default class Form extends React.Component<Props, State> {
 
   async handleChangeImg(event: React.ChangeEvent<HTMLInputElement>) {
     const imgFile = event.target.files;
-    this.setState({ file: imgFile ? URL.createObjectURL(imgFile[0]) : '' });
+    await this.setState({ file: imgFile ? URL.createObjectURL(imgFile[0]) : '' });
     if (this.state.validateData.length !== 0) await this.validate();
   }
 
@@ -119,6 +119,7 @@ export default class Form extends React.Component<Props, State> {
     if (!this.checkboxInput.current?.checked) errors.push('agree');
     if (this.state.file == '') errors.push('file');
     await this.setState({ validateData: errors });
+    console.log(this.state.validateData);
     if (this.state.validateData.length == 0) this.setState({ isDisabled: false });
   }
 
@@ -169,7 +170,7 @@ export default class Form extends React.Component<Props, State> {
               }
             >
               {this.state.file ? 'Avatar selected' : 'Upload an avatar'}
-              <input type="file" id="forms__input" onChange={this.handleChangeImg} />
+              <input type="file" id="forms__input" name="file" onChange={this.handleChangeImg} />
             </label>
             <span className="forms__text">Gender:</span>
             <div>
