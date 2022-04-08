@@ -119,7 +119,6 @@ export default class Form extends React.Component<Props, State> {
     if (!this.checkboxInput.current?.checked) errors.push('agree');
     if (this.state.file == '') errors.push('file');
     await this.setState({ validateData: errors });
-    console.log(this.state.validateData);
     if (this.state.validateData.length == 0) this.setState({ isDisabled: false });
   }
 
