@@ -154,7 +154,7 @@ export default class Form extends React.Component<Props, State> {
             </select>
             <br />
             <label
-              htmlFor="forms__file__input"
+              htmlFor="forms__input"
               className={
                 this.state.file
                   ? 'forms__file_select'
@@ -164,7 +164,7 @@ export default class Form extends React.Component<Props, State> {
               }
             >
               {this.state.file ? 'Avatar selected' : 'Upload an avatar'}
-              <input type="file" id="forms__file__input" onChange={this.handleChangeImg} />
+              <input type="file" id="forms__input" onChange={this.handleChangeImg} />
             </label>
             <span className="forms__text">Gender:</span>
             <div>
