@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.scss';
 
-type Props = { value: string | undefined };
+type Props = () => null;
 type State = { value: string };
 
 class Search extends React.Component<Props, State> {

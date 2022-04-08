@@ -11,11 +11,11 @@ export interface FormState {
   gender: string;
 }
 
-type Props = { value: undefined };
+type Props = () => null;
 type State = { subscribers: Array<FormState> };
 
 class Forms extends React.Component<Props, State> {
-  constructor(props: Props | Readonly<Props>) {
+  constructor(props: Props) {
     super(props);
     this.setFormState = this.setFormState.bind(this);
     this.state = {

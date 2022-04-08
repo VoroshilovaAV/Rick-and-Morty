@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <h1 data-testid="home-page">Home page</h1>
-      <Search value={undefined} />
+      <Search />
       <div className="wrapper">
         {cardsData.map((item) => (
           <Card
