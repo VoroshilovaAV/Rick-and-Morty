@@ -44,12 +44,11 @@ export default class Form extends React.Component<Props, State> {
   async handleChange(
     event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
   ) {
-    const name = event.target.name;
-    if (name == 'country') {
+    if (event.target.name == 'country') {
       const value = event.target.value;
-      await this.setState((prevState) => ({
+      this.setState((prevState) => ({
         ...prevState,
-        [name]: value,
+        country: value,
       }));
     }
     this.state.validateData.length !== 0
@@ -59,7 +58,7 @@ export default class Form extends React.Component<Props, State> {
 
   async handleChangeImg(event: React.ChangeEvent<HTMLInputElement>) {
     const imgFile = event.target.files;
-    await this.setState({ file: imgFile ? URL.createObjectURL(imgFile[0]) : '' });
+    this.setState({ file: imgFile ? URL.createObjectURL(imgFile[0]) : '' });
     if (this.state.validateData.length !== 0) await this.validate();
   }
 
@@ -70,9 +69,9 @@ export default class Form extends React.Component<Props, State> {
       this.setState({ isDisabled: true });
     } else {
       const cardState = {
-        name: this.nameInput.current?.value ? this.nameInput.current?.value : '',
-        surname: this.surnameInput.current?.value ? this.surnameInput.current?.value : '',
-        date: this.dateInput.current?.value ? this.dateInput.current?.value : '',
+        name: this.nameInput.current?.value ?? '',
+        surname: this.surnameInput.current?.value ?? '',
+        date: this.dateInput.current?.value ?? '',
         country: this.state.country,
         file: this.state.file,
         gender: this.genderInput.current?.checked ? 'Women' : 'Man',
