@@ -130,26 +130,46 @@ export default class Form extends React.Component<Props, State> {
             <label className="forms__name">
               Name:
               <br />
-              <input type="text" ref={this.nameInput} onChange={this.handleChange} />
+              <input
+                data-testid="name"
+                type="text"
+                ref={this.nameInput}
+                onChange={this.handleChange}
+              />
               <ErrorMessage validateData={this.state.validateData} input="name" />
             </label>
             <label className="forms__surname">
               Surname:
               <br />
-              <input type="text" ref={this.surnameInput} onChange={this.handleChange} />
+              <input
+                type="text"
+                data-testid="surname"
+                ref={this.surnameInput}
+                onChange={this.handleChange}
+              />
               <ErrorMessage validateData={this.state.validateData} input="surname" />
             </label>
             <label className="forms__date">
               Date of Birth:
               <br />
-              <input type="date" ref={this.dateInput} onChange={this.handleChange} />
+              <input
+                type="date"
+                data-testid="date"
+                ref={this.dateInput}
+                onChange={this.handleChange}
+              />
               <ErrorMessage validateData={this.state.validateData} input="date" />
             </label>
             <label htmlFor="input__country" className="forms__country">
               Country:
               <br />
             </label>
-            <select id="input__country" name="country" onChange={this.handleChange}>
+            <select
+              id="input__country"
+              data-testid="country"
+              name="country"
+              onChange={this.handleChange}
+            >
               <option value="USA">USA</option>
               <option value="Russia">Russia</option>
               <option value="Belarus">Belarus</option>
@@ -169,7 +189,13 @@ export default class Form extends React.Component<Props, State> {
               }
             >
               {this.state.file ? 'Avatar selected' : 'Upload an avatar'}
-              <input type="file" id="forms__input" name="file" onChange={this.handleChangeImg} />
+              <input
+                type="file"
+                data-testid="file"
+                id="forms__input"
+                name="file"
+                onChange={this.handleChangeImg}
+              />
             </label>
             <span className="forms__text">Gender:</span>
             <div>
@@ -183,7 +209,12 @@ export default class Form extends React.Component<Props, State> {
             <br />
             <span>I agree to the processing of personal data:</span>
             <label className="forms__checkbox_last">
-              <input type="checkbox" ref={this.checkboxInput} onChange={this.handleChange} />
+              <input
+                type="checkbox"
+                data-testid="agree"
+                ref={this.checkboxInput}
+                onChange={this.handleChange}
+              />
               <ErrorMessage validateData={this.state.validateData} input="agree" />
             </label>
             <input

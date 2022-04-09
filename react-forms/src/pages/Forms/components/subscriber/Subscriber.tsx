@@ -5,7 +5,7 @@ export default function Subscriber(props: { item: FormState }) {
   return (
     <>
       <div className="wrapper">
-        <div className="subscriber">
+        <div data-testid="subscriber" className="subscriber">
           <img className="subscriber__img" src={props.item.file} alt="avatar" />
           <div className="subscriber__info">
             <h4 className="subscriber__name">

@@ -30,7 +30,7 @@ class Forms extends React.Component<Props, State> {
   render() {
     return (
       <>
-        <h1 data-testid="forms-page">Create a subscriber card</h1>
+        <h1>Create a subscriber card</h1>
         <Form setFormState={this.setFormState} />
         <div className="wrapper">
           {this.state.subscribers.map((item: FormState, index: number) => {
