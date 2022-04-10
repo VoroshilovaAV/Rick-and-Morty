@@ -55,6 +55,7 @@ $txt-color: #000000;
 .card:hover{
   box-shadow: 2px 2px 35px rgba(140, 241, 223, 0.5);  
   border: 0.5px solid rgb(31, 228, 178);
+  cursor: pointer;
 }
 
 img {
@@ -104,5 +105,5 @@ li {
   font-style: italic;
   line-height: 18px;
   text-align: left;
-  margin: 1em 0 0 1em;
+  margin: 0 0 0.5em 1em;
 }

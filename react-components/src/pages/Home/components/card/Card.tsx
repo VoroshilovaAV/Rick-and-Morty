@@ -2,6 +2,7 @@ import React from 'react';
 import './index.scss';
 
 export interface ICard {
+  created: string;
   image: string;
   name: string;
   status: string;
@@ -22,10 +23,11 @@ class Card extends React.Component<ICard> {
           <div className="card__content">
             <img src={this.props.image} alt="card image" />
             <ul>
-              <li>Status: {this.props.status}</li>
-              <li>Species: {this.props.species}</li>
-              <li>Type: {this.props.type}</li>
               <li>Gender: {this.props.gender}</li>
+              <li>Species: {this.props.species}</li>
+              <li>Status: {this.props.status}</li>
+              <li>Type: {this.props.type}</li>
+              <li>Created: {this.props.created}</li>
             </ul>
           </div>
         </div>
