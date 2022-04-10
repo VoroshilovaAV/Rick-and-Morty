@@ -30,9 +30,9 @@
 
 $card-width: 350px;
 $card-height: 250px;
-$h-color: #9cc9e3;
+$h-color: #12a591;
 $active: #15ffe0;
-$txt-color: #dce3e7;
+$txt-color: #000000;
 
 * {
   box-sizing: border-box;
@@ -43,43 +43,41 @@ $txt-color: #dce3e7;
 .card {
   width: $card-width;
   height: $card-height;
-  display: block;
-  position: relative;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;  
   border-radius: 10px;
   background-color: rgb(255, 255, 255);
   box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.5);
   text-align: center;
-  margin-bottom: 50px;
-
-  img {
-    opacity: 0.7;
-  }
-
-  &:hover {
-    .card-info {
-      opacity: 1;
-      bottom: 120px;
-    }
-    img {
-      opacity: 0.2;
-      transition: 0.4s;
-    }
-  }
+  margin-bottom: 15px;   
 }
 
-.title-content {
+.card:hover{
+  box-shadow: 2px 2px 35px rgba(140, 241, 223, 0.5);  
+  border: 0.5px solid rgb(31, 228, 178);
+}
+
+img {
+  width: 10em;
+  height: 10em;
+  margin-left: 0.7em;
+  border-radius: 10px;
+}  
+
+.card__title {
   text-align: center;
-  margin: 70px 0 0 0;
-  position: absolute;
+  margin: 20px 0 0 0;  
   z-index: 20;
-  width: 100%;
-  top: 0;
-  left: 0;
+  width: 100%;  
+}
+
+.card__content {
+  display: flex;
+  flex-direction: row;
 }
 
 h3 {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   letter-spacing: 2px;
   color: $h-color;
@@ -91,62 +89,20 @@ h3 {
 hr {
   width: 50px;
   height: 3px;
-  margin: 20px auto;
+  margin: 10px auto;
   border: 0;
   background: $active;
+  margin-bottom: 1.2em;
 }
 
-.intro {
-  width: 170px;
-  margin: 0 auto;
+li {
+  list-style-type: none;
+  width: 150px;  
   color: $txt-color;
   font-family: 'Roboto', serif;
   font-size: 13px;
   font-style: italic;
   line-height: 18px;
-}
-
-.card-info {
-  width: 100%;
-  position: absolute;
-  bottom: 100px;
-  left: 0;
-  margin: 0 auto;
-  padding: 0 50px;
-  color: $txt-color;
-  font-family: 'Roboto', serif;
-  font-style: 16px;
-  line-height: 24px;
-  z-index: 20;
-  opacity: 0;
-  transition: bottom 0.3s, opacity 0.3s cubic-bezier(0.33, 0.66, 0.66, 1);
-}
-
-.utility-info {
-  position: absolute;
-  bottom: 0px;
-  left: 0;
-  z-index: 20;
-}
-
-.utility-list {
-  list-style-type: none;
-  margin: 0 0 30px 20px;
-  padding: 0;
-  width: 100%;
-
-  li {
-    margin: 0 15px 0 0;
-    padding: 0 0 0 22px;
-    display: inline-block;
-    color: $txt-color;
-    font-family: 'Roboto', sans-serif;
-
-    &.likes {
-      background: url(/assets/icons/icon-like.svg) no-repeat 0 0.1em;
-    }
-    &.date {
-      background: url(/assets/icons/icon-calendar.svg) no-repeat 0 0.1em;
-    }
-  }
+  text-align: left;
+  margin: 1em 0 0 1em;
 }

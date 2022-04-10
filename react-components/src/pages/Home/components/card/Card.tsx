@@ -2,12 +2,12 @@ import React from 'react';
 import './index.scss';
 
 export interface ICard {
-  img: string;
+  image: string;
   name: string;
-  description: string;
-  text: string;
-  likes: number;
-  date: string;
+  status: string;
+  species: string;
+  type: string;
+  gender: string;
 }
 
 class Card extends React.Component<ICard> {
@@ -15,13 +15,19 @@ class Card extends React.Component<ICard> {
     return (
       <>
         <div data-testid="card-component" className="card">
-          <img src={this.props.img} alt="card image" />
-          <div className="title-content">
+          <div className="card__title">
             <h3>{this.props.name}</h3>
             <hr />
-            <div className="intro">{this.props.description}</div>
           </div>
-          <div className="card-info">{this.props.text}</div>
+          <div className="card__content">
+            <img src={this.props.image} alt="card image" />
+            <ul>
+              <li>Status: {this.props.status}</li>
+              <li>Species: {this.props.species}</li>
+              <li>Type: {this.props.type}</li>
+              <li>Gender: {this.props.gender}</li>
+            </ul>
+          </div>
         </div>
       </>
     );
