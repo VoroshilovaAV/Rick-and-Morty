@@ -22,13 +22,6 @@ class Card extends React.Component<ICard> {
             <div className="intro">{this.props.description}</div>
           </div>
           <div className="card-info">{this.props.text}</div>
-          <div className="utility-info">
-            <ul className="utility-list">
-              <li className="likes">{this.props.likes}</li>
-              <li className="date">{this.props.date}</li>
-            </ul>
-          </div>
-          <div className="gradient-overlay"></div>
         </div>
       </>
     );

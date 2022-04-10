@@ -29,7 +29,7 @@
 }
 
 $card-width: 350px;
-$card-height: 500px;
+$card-height: 250px;
 $h-color: #9cc9e3;
 $active: #15ffe0;
 $txt-color: #dce3e7;
@@ -47,23 +47,13 @@ $txt-color: #dce3e7;
   position: relative;
   overflow: hidden;
   border-radius: 10px;
-  background-color: rgb(86, 86, 90);
+  background-color: rgb(255, 255, 255);
   box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.5);
   text-align: center;
   margin-bottom: 50px;
 
   img {
     opacity: 0.7;
-  }
-
-  .gradient-overlay {
-    background-image: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 21%);
-    width: $card-width;
-    height: $card-height;
-    position: absolute;
-    top: 350px;
-    left: 0;
-    z-index: 15;
   }
 
   &:hover {
