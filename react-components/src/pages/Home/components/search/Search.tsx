@@ -2,7 +2,7 @@ import React from 'react';
 import { CharacterResult, CharactersData } from '../../interfaces';
 import './index.scss';
 
-type Props = { setHomeState: (currentData: Array<CharacterResult>) => void };
+type Props = { setHomeState: (currentData: Array<CharacterResult>, errorMessage: string) => void };
 type State = { value: string };
 
 class Search extends React.Component<Props, State> {
@@ -29,9 +29,14 @@ class Search extends React.Component<Props, State> {
     this.setState({ value: value });
   }
 
-  async handleSubmit(event: { preventDefault: () => void }) {
+  handleSubmit(event: { preventDefault: () => void }) {
     event.preventDefault();
-    await this.getData();
+    this.getData();
+  }
+
+  getErrorMessage(error: unknown) {
+    if (error instanceof Error) return error.message;
+    return String(error);
   }
 
   async getData() {
@@ -41,10 +46,14 @@ class Search extends React.Component<Props, State> {
         : 'https://rickandmortyapi.com/api/character';
     try {
       const response = await fetch(`${base}`);
-      const data: CharactersData = await response.json();
-      this.props.setHomeState(data.results);
-    } catch (err) {
-      console.log(err);
+      if (!response.ok) {
+        throw Error('No data was found for this query');
+      } else {
+        const data: CharactersData = await response.json();
+        this.props.setHomeState(data.results, '');
+      }
+    } catch (error) {
+      this.props.setHomeState([], this.getErrorMessage(error));
     }
   }
 

@@ -1,13 +1,18 @@
 import React from 'react';
+
 import Search from './components/search/Search';
 import Card from './components/card/Card';
-import './index.scss';
 import { CharacterResult } from './interfaces';
+
+import preloader from '../../assets/images/preloader.gif';
+import error from '../../assets/images/error.png';
+import './index.scss';
 
 type Props = () => null;
 type State = {
   data: Array<CharacterResult>;
   isLoaded: boolean;
+  errorMessage: string;
 };
 
 export default class Home extends React.Component<Props, State> {
@@ -16,12 +21,13 @@ export default class Home extends React.Component<Props, State> {
     this.setHomeState = this.setHomeState.bind(this);
     this.state = {
       data: [],
-      isLoaded: true,
+      isLoaded: false,
+      errorMessage: '',
     };
   }
 
-  setHomeState(currentData: Array<CharacterResult>) {
-    this.setState({ data: currentData, isLoaded: true });
+  setHomeState(currentData: Array<CharacterResult>, errorMessage: string) {
+    this.setState({ data: currentData, isLoaded: true, errorMessage: errorMessage });
   }
 
   render() {
@@ -30,8 +36,11 @@ export default class Home extends React.Component<Props, State> {
         <h1 data-testid="home-page">Home page</h1>
         <Search setHomeState={this.setHomeState} />
         {!this.state.isLoaded ? (
-          <div className="preloader">
-            <div className="preloader__image"></div>
+          <img src={preloader} alt="error image" className="preloader__img"></img>
+        ) : this.state.errorMessage ? (
+          <div className="error">
+            <img src={error} alt="error image" className="error__img" />
+            <div className="error__text">{this.state.errorMessage}</div>
           </div>
         ) : (
           <div className="wrapper">
