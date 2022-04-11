@@ -6,7 +6,7 @@ import { CharacterResult } from './interfaces';
 
 import preloader from '../../assets/images/preloader.gif';
 import error from '../../assets/images/error.png';
-import './index.scss';
+import './home.scss';
 
 type Props = () => null;
 type State = {

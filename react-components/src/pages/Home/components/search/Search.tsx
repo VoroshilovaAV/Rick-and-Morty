@@ -1,6 +1,6 @@
 import React from 'react';
 import { CharacterResult, CharactersData } from '../../interfaces';
-import './index.scss';
+import './search.scss';
 
 type Props = { setHomeState: (currentData: Array<CharacterResult>, errorMessage: string) => void };
 type State = { value: string };

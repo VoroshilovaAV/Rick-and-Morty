@@ -40,6 +40,15 @@ $txt-color: #000000;
   padding: 0;
 }
 
+.card-button{
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;  
+  cursor: pointer;
+}
+
 .card {
   width: $card-width;
   height: $card-height;
@@ -55,10 +64,9 @@ $txt-color: #000000;
 .card:hover{
   box-shadow: 2px 2px 35px rgba(140, 241, 223, 0.5);  
   border: 0.5px solid rgb(31, 228, 178);
-  cursor: pointer;
 }
 
-img {
+.card__img {
   width: 10em;
   height: 10em;
   margin-left: 0.7em;
@@ -67,8 +75,7 @@ img {
 
 .card__title {
   text-align: center;
-  margin: 20px 0 0 0;  
-  z-index: 20;
+  margin: 20px 0 0 0;
   width: 100%;  
 }
 
