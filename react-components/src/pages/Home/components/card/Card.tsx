@@ -26,15 +26,14 @@ export default class Card extends React.Component<ICard, State> {
   }
 
   toggleModal() {
-    const currentModal = this.state.modal;
-    this.setState({ modal: !currentModal });
+    this.setState({ modal: !this.state.modal });
   }
 
   handleStop(event: { stopPropagation: () => void }) {
     event.stopPropagation();
   }
 
-  getCard() {
+  getCard(showFullInfo: boolean) {
     return (
       <>
         <div className="card__title">
@@ -47,7 +46,7 @@ export default class Card extends React.Component<ICard, State> {
             <li>Gender: {this.props.gender}</li>
             <li>Species: {this.props.species}</li>
             <li>Status: {this.props.status}</li>
-            {this.state.modal && (
+            {showFullInfo && (
               <>
                 <li>Type: {this.props.type}</li>
                 <li>Created: {this.props.created}</li>
@@ -67,7 +66,7 @@ export default class Card extends React.Component<ICard, State> {
             <div className="modal">
               <div onClick={this.toggleModal} className="overlay"></div>
               <div className="modal-content" onClick={this.handleStop}>
-                {this.getCard()}
+                {this.getCard(true)}
                 <button className="close-modal" onClick={this.toggleModal}>
                   &#10008;
                 </button>
@@ -75,7 +74,7 @@ export default class Card extends React.Component<ICard, State> {
             </div>
           )}
           <div data-testid="card-component" className="card">
-            {this.getCard()}
+            {this.getCard(false)}
           </div>
         </button>
       </>
