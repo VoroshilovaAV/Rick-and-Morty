@@ -64,10 +64,10 @@ export default class Card extends React.Component<ICard, State> {
         <button className="card-button" onClick={this.toggleModal}>
           {this.state.modal && (
             <div className="modal">
-              <div onClick={this.toggleModal} className="overlay"></div>
-              <div className="modal-content" onClick={this.handleStop}>
+              <div onClick={this.toggleModal} className="modal__overlay"></div>
+              <div className="modal__content" onClick={this.handleStop}>
                 {this.getCard(true)}
-                <button className="close-modal" onClick={this.toggleModal}>
+                <button className="modal__close" onClick={this.toggleModal}>
                   &#10008;
                 </button>
               </div>

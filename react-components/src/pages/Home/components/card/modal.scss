@@ -1,11 +1,4 @@
-.btn-modal {
-    padding: 10px 20px;
-    display: block;
-    margin: 100px auto 0;
-    font-size: 18px;
-}
-
-.modal, .overlay {
+.modal, .modal__overlay {
     width: 100vw;
     height: 100vh;
     top: 0;
@@ -15,10 +8,10 @@
     position: fixed;
 }
 
-.overlay {
+.modal__overlay {
     background: rgba(49,49,49,0.8);
 }
-.modal-content {
+.modal__content {
     position: absolute;
     top: 40%;
     left: 50%;
@@ -33,7 +26,7 @@
     cursor: auto;
 }
 
-.close-modal {
+.modal__close {
     position: absolute;
     top: 1em;
     right: 1em;
@@ -45,6 +38,6 @@
     cursor: pointer;      
 }
 
-.close-modal:hover {
+.modal__close:hover {
     opacity: .5;
 }
