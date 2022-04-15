@@ -11,7 +11,7 @@ export interface FormState {
   gender: string;
 }
 
-type Props = () => null;
+type Props = { value?: null };
 type State = { subscribers: Array<FormState> };
 
 class Forms extends React.Component<Props, State> {
