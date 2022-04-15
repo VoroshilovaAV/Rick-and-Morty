@@ -11,15 +11,15 @@ export interface FormState {
   gender: string;
 }
 
-type Props = { value?: null };
-type State = { subscribers: Array<FormState> };
+type State = { subscribers: Array<FormState>; counter: number };
 
-class Forms extends React.Component<Props, State> {
-  constructor(props: Props) {
+class Forms extends React.Component<Record<string, never>, State> {
+  constructor(props: Record<string, never> | Readonly<Record<string, never>>) {
     super(props);
     this.setFormState = this.setFormState.bind(this);
     this.state = {
       subscribers: [],
+      counter: 0,
     };
   }
 
@@ -33,8 +33,9 @@ class Forms extends React.Component<Props, State> {
         <h1>Create a subscriber card</h1>
         <Form setFormState={this.setFormState} />
         <div className="wrapper">
-          {this.state.subscribers.map((item: FormState, index: number) => {
-            return <Subscriber item={item} key={index} />;
+          {this.state.subscribers.map((item: FormState) => {
+            this.setState({ counter: this.state.counter + 1 });
+            return <Subscriber item={item} key={this.state.counter} />;
           })}
         </div>
       </>
