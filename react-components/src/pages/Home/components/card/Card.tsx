@@ -1,38 +1,83 @@
 import React from 'react';
-import './index.scss';
+import './card.scss';
+import './modal.scss';
 
 export interface ICard {
-  img: string;
+  created: string;
+  image: string;
   name: string;
-  description: string;
-  text: string;
-  likes: number;
-  date: string;
+  status: string;
+  species: string;
+  type: string;
+  gender: string;
 }
 
-class Card extends React.Component<ICard> {
-  render() {
+type State = { modal: boolean };
+
+export default class Card extends React.Component<ICard, State> {
+  constructor(props: ICard) {
+    super(props);
+    this.toggleModal = this.toggleModal.bind(this);
+    this.handleStop = this.handleStop.bind(this);
+    this.getCard = this.getCard.bind(this);
+    this.state = {
+      modal: false,
+    };
+  }
+
+  toggleModal() {
+    this.setState({ modal: !this.state.modal });
+  }
+
+  handleStop(event: { stopPropagation: () => void }) {
+    event.stopPropagation();
+  }
+
+  getCard(showFullInfo: boolean) {
     return (
       <>
-        <div data-testid="card-component" className="card">
-          <img src={this.props.img} alt="card image" />
-          <div className="title-content">
-            <h3>{this.props.name}</h3>
-            <hr />
-            <div className="intro">{this.props.description}</div>
-          </div>
-          <div className="card-info">{this.props.text}</div>
-          <div className="utility-info">
-            <ul className="utility-list">
-              <li className="likes">{this.props.likes}</li>
-              <li className="date">{this.props.date}</li>
-            </ul>
-          </div>
-          <div className="gradient-overlay"></div>
+        <div className="card__title">
+          <h3>{this.props.name}</h3>
+          <hr />
+        </div>
+        <div className="card__content">
+          <img className="card__img" src={this.props.image} alt="card image" />
+          <ul>
+            <li>Gender: {this.props.gender}</li>
+            <li>Species: {this.props.species}</li>
+            <li>Status: {this.props.status}</li>
+            {showFullInfo && (
+              <>
+                <li>Type: {this.props.type}</li>
+                <li>Created: {this.props.created}</li>
+              </>
+            )}
+          </ul>
         </div>
       </>
     );
   }
-}
 
-export default Card;
+  render() {
+    return (
+      <>
+        <button className="card-button" onClick={this.toggleModal}>
+          {this.state.modal && (
+            <div className="modal">
+              <div onClick={this.toggleModal} className="modal__overlay"></div>
+              <div className="modal__content" onClick={this.handleStop}>
+                {this.getCard(true)}
+                <button className="modal__close" onClick={this.toggleModal}>
+                  &#10008;
+                </button>
+              </div>
+            </div>
+          )}
+          <div data-testid="card-component" className="card">
+            {this.getCard(false)}
+          </div>
+        </button>
+      </>
+    );
+  }
+}

@@ -1,0 +1,116 @@
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: local(''), url(/assets/fonts/roboto-v29-latin-300.woff) format('woff2'),
+    url(/assets/fonts/roboto-v29-latin-300.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''), url(/assets/fonts/roboto-v29-latin-regular.woff2) format('woff2'),
+    url(/assets/fonts/roboto-v29-latin-regular.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: local(''), url(/assets/fonts/roboto-v29-latin-500.woff2) format('woff2'),
+    url(/assets/fonts/roboto-v29-latin-500.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: local(''), url(/assets/fonts/roboto-v29-latin-700.woff2) format('woff2'),
+    url(/assets/fonts/roboto-v29-latin-700.woff) format('woff');
+}
+
+$card-width: 350px;
+$card-height: 250px;
+$h-color: #12a591;
+$active: #15ffe0;
+$txt-color: #000000;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.card-button{
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;  
+  cursor: pointer;
+}
+
+.card {
+  width: $card-width;
+  height: $card-height;
+  display: flex;
+  flex-direction: column;  
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  margin-bottom: 15px;   
+}
+
+.card:hover{
+  box-shadow: 2px 2px 35px rgba(140, 241, 223, 0.5);  
+  border: 0.5px solid rgb(31, 228, 178);
+}
+
+.card__img {
+  width: 10em;
+  height: 10em;
+  margin-left: 0.7em;
+  border-radius: 10px;
+}  
+
+.card__title {
+  text-align: center;
+  margin: 20px 0 0 0;
+  width: 100%;  
+}
+
+.card__content {
+  display: flex;
+  flex-direction: row;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: $h-color;
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+
+hr {
+  width: 50px;
+  height: 3px;
+  margin: 10px auto;
+  border: 0;
+  background: $active;
+  margin-bottom: 1.2em;
+}
+
+li {
+  list-style-type: none;
+  width: 150px;  
+  color: $txt-color;
+  font-family: 'Roboto', serif;
+  font-size: 13px;
+  font-style: italic;
+  line-height: 18px;
+  text-align: left;
+  margin: 0 0 0.5em 1em;
+}
