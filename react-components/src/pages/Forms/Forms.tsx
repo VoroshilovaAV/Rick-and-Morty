@@ -9,9 +9,10 @@ export interface FormState {
   country: string;
   file: string;
   gender: string;
+  id: number;
 }
 
-type State = { subscribers: Array<FormState>; counter: number };
+type State = { subscribers: Array<FormState> };
 
 class Forms extends React.Component<Record<string, never>, State> {
   constructor(props: Record<string, never> | Readonly<Record<string, never>>) {
@@ -19,12 +20,13 @@ class Forms extends React.Component<Record<string, never>, State> {
     this.setFormState = this.setFormState.bind(this);
     this.state = {
       subscribers: [],
-      counter: 0,
     };
   }
 
   setFormState(currentCard: FormState) {
-    this.setState({ subscribers: [...this.state.subscribers, currentCard] });
+    this.setState({
+      subscribers: [...this.state.subscribers, currentCard],
+    });
   }
 
   render() {
@@ -34,8 +36,7 @@ class Forms extends React.Component<Record<string, never>, State> {
         <Form setFormState={this.setFormState} />
         <div className="wrapper">
           {this.state.subscribers.map((item: FormState) => {
-            this.setState({ counter: this.state.counter + 1 });
-            return <Subscriber item={item} key={this.state.counter} />;
+            return <Subscriber item={item} key={item.id} />;
           })}
         </div>
       </>

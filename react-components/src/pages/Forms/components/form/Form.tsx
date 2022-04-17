@@ -12,6 +12,7 @@ type State = {
   validateData: Array<string>;
   isDisabled: boolean;
   message: string;
+  id: number;
 };
 
 export default class Form extends React.Component<Props, State> {
@@ -38,6 +39,7 @@ export default class Form extends React.Component<Props, State> {
       validateData: [],
       isDisabled: true,
       message: '',
+      id: 0,
     };
   }
 
@@ -75,6 +77,7 @@ export default class Form extends React.Component<Props, State> {
         country: this.state.country,
         file: this.state.file,
         gender: this.genderInput.current?.checked ? 'Women' : 'Man',
+        id: this.state.id,
       };
       this.form.current?.reset();
       this.setState({ message: 'ok' });
@@ -82,7 +85,7 @@ export default class Form extends React.Component<Props, State> {
         this.setState({ message: '' });
       }, 2500);
       this.props.setFormState(cardState);
-      this.setState({ file: '' });
+      this.setState({ file: '', id: this.state.id + 1 });
     }
   }
 
