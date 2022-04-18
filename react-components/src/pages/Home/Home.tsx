@@ -14,8 +14,8 @@ type State = {
   errorMessage: string;
 };
 
-export default class Home extends React.Component<Record<string, never>, State> {
-  constructor(props: Record<string, never> | Readonly<Record<string, never>>) {
+export default class Home extends React.Component<unknown, State> {
+  constructor(props: unknown) {
     super(props);
     this.setHomeState = this.setHomeState.bind(this);
     this.state = {

@@ -14,8 +14,8 @@ export interface FormState {
 
 type State = { subscribers: Array<FormState> };
 
-class Forms extends React.Component<Record<string, never>, State> {
-  constructor(props: Record<string, never> | Readonly<Record<string, never>>) {
+class Forms extends React.Component<unknown, State> {
+  constructor(props: unknown) {
     super(props);
     this.setFormState = this.setFormState.bind(this);
     this.state = {
