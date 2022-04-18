@@ -1,0 +1,46 @@
+.modal {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.modal__content {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1.4;
+  background: #f1f1f1;
+  padding: 14px 14px;
+  border-radius: 3px;
+  max-width: 500px;
+  min-width: 300px;
+  border-radius: 10px;
+  cursor: auto;
+}
+
+.modal__wrapper {
+  position: absolute;
+  top: 40%;
+  left: 50%;  
+}
+
+.modal__close {
+  position: relative;
+  bottom: 7em;
+  left: 9em;
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: #12a591;
+  background-color: transparent;
+  cursor: pointer;      
+}
+
+.modal__close:hover {
+  opacity: .5;
+}

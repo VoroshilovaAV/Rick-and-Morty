@@ -14,8 +14,8 @@ type State = {
   errorMessage: string;
 };
 
-export default class Home extends React.Component<Record<string, never>, State> {
-  constructor(props: Record<string, never> | Readonly<Record<string, never>>) {
+export default class Home extends React.Component<unknown, State> {
+  constructor(props: unknown) {
     super(props);
     this.setHomeState = this.setHomeState.bind(this);
     this.state = {
@@ -35,7 +35,12 @@ export default class Home extends React.Component<Record<string, never>, State> 
         <h1 data-testid="home-page">Home page</h1>
         <Search setHomeState={this.setHomeState} />
         {!this.state.isLoaded ? (
-          <img src={preloader} alt="error image" className="preloader__img"></img>
+          <img
+            src={preloader}
+            alt="error image"
+            className="preloader__img"
+            data-testid="preloader"
+          ></img>
         ) : this.state.errorMessage ? (
           <div className="error">
             <img src={error} alt="error image" className="error__img" />

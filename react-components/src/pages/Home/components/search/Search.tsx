@@ -40,10 +40,8 @@ export default class Search extends React.Component<Props, State> {
   }
 
   async getData() {
-    const base =
-      this.state.value !== ''
-        ? `https://rickandmortyapi.com/api/character/?name=${this.state.value}`
-        : 'https://rickandmortyapi.com/api/character';
+    const api = 'https://rickandmortyapi.com/api/character';
+    const base = this.state.value !== '' ? `${api}/?name=${this.state.value}` : `${api}`;
     try {
       const response = await fetch(`${base}`);
       if (!response.ok) {
