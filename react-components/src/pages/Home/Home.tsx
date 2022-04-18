@@ -35,7 +35,12 @@ export default class Home extends React.Component<unknown, State> {
         <h1 data-testid="home-page">Home page</h1>
         <Search setHomeState={this.setHomeState} />
         {!this.state.isLoaded ? (
-          <img src={preloader} alt="error image" className="preloader__img"></img>
+          <img
+            src={preloader}
+            alt="error image"
+            className="preloader__img"
+            data-testid="preloader"
+          ></img>
         ) : this.state.errorMessage ? (
           <div className="error">
             <img src={error} alt="error image" className="error__img" />

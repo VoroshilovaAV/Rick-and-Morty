@@ -13,9 +13,9 @@ export default class Search extends React.Component<Props, State> {
     this.state = { value: '' };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     if (localStorage.getItem('searchValue')) {
-      this.setState({ value: JSON.parse(localStorage.getItem('searchValue') || '') });
+      await this.setState({ value: JSON.parse(localStorage.getItem('searchValue') || '') });
     }
     this.getData();
   }

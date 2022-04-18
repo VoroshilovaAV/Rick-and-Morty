@@ -13,7 +13,7 @@ export default class Modal extends React.Component<Props> {
   render() {
     return (
       <Portal>
-        <div className="modal">
+        <div data-testid="modal" className="modal">
           <ModalOverlay />
           <CardModal currentData={this.props.currentData} />
           <div className="modal__wrapper">
