@@ -4,9 +4,7 @@ import './cardModal.scss';
 import '../card/card.scss';
 import { ICard } from '../card/Card';
 
-type Props = {
-  currentData: ICard;
-};
+type Props = { currentData: ICard };
 
 export default class CardModal extends React.Component<Props> {
   render() {
