@@ -8,15 +8,14 @@ import preloader from '../../assets/images/preloader.gif';
 import error from '../../assets/images/error.png';
 import './home.scss';
 
-type Props = () => null;
 type State = {
   data: Array<CharacterResult>;
   isLoaded: boolean;
   errorMessage: string;
 };
 
-export default class Home extends React.Component<Props, State> {
-  constructor(props: Props) {
+export default class Home extends React.Component<Record<string, never>, State> {
+  constructor(props: Record<string, never> | Readonly<Record<string, never>>) {
     super(props);
     this.setHomeState = this.setHomeState.bind(this);
     this.state = {

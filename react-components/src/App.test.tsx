@@ -18,10 +18,8 @@ describe('test app', () => {
     );
     const homePageText = screen.getByText(/Home page/i);
     const searchBar = screen.getByPlaceholderText(/Search card/i);
-    const cardDate = screen.getByText(/24.03.2022/i);
     expect(homePageText).toBeInTheDocument();
     expect(searchBar).toBeInTheDocument();
-    expect(cardDate).toBeInTheDocument();
   });
 
   test('input event', () => {
@@ -55,13 +53,6 @@ describe('test app', () => {
       </MemoryRouter>
     );
     expect(screen.getByTestId('error-page')).toBeInTheDocument();
-  });
-
-  test('renders cards', () => {
-    render(<Home />);
-    const cardCount = screen.getAllByTestId(/card-component/i);
-    const totalCards = 6;
-    expect(cardCount).toHaveLength(totalCards);
   });
 
   test('expects something to be set in localStorage', () => {

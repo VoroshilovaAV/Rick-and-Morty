@@ -5,7 +5,7 @@ import './search.scss';
 type Props = { setHomeState: (currentData: Array<CharacterResult>, errorMessage: string) => void };
 type State = { value: string };
 
-class Search extends React.Component<Props, State> {
+export default class Search extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -76,5 +76,3 @@ class Search extends React.Component<Props, State> {
     );
   }
 }
-
-export default Search;
