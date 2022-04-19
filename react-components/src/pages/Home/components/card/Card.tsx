@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Modal from '../modal/Modal';
+import { Modal } from '../modal/Modal';
 import './card.scss';
 
 export interface ICard {
@@ -18,7 +18,17 @@ export function Card(props: ICard) {
   return (
     <>
       <button className="card-button" onClick={() => setModal(!isModalShown)}>
-        {isModalShown && <Modal currentData={props} />}
+        {isModalShown && (
+          <Modal
+            created={props.created}
+            image={props.image}
+            name={props.name}
+            status={props.status}
+            species={props.species}
+            type={props.type}
+            gender={props.gender}
+          />
+        )}
         <div data-testid="card-component" className="card">
           <div className="card__title">
             <h3>{props.name}</h3>
