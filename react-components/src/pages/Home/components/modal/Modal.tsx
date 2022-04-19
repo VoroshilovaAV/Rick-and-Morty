@@ -1,26 +1,25 @@
 import React from 'react';
-
-import { Portal } from '../portal/Portal';
-import { ICard } from '../card/Card';
-import CardModal from '../cardModal/CardModal';
+import ReactDOM from 'react-dom';
 import ModalOverlay from '../modalOverlay/ModalOverlay';
-
 import '../cardModal/cardModal.scss';
 
-type Props = { currentData: ICard };
+type Props = { children: React.ReactNode };
 
-export default class Modal extends React.Component<Props> {
-  render() {
-    return (
-      <Portal>
+const modalRoot = document.getElementById('modal');
+
+const Modal: React.FC<Props> = ({ children }) => {
+  return modalRoot
+    ? ReactDOM.createPortal(
         <div data-testid="modal" className="modal">
           <ModalOverlay />
-          <CardModal currentData={this.props.currentData} />
+          {children}
           <div className="modal__wrapper">
             <button className="modal__close">&#10008;</button>
           </div>
-        </div>
-      </Portal>
-    );
-  }
-}
+        </div>,
+        modalRoot
+      )
+    : null;
+};
+
+export default Modal;

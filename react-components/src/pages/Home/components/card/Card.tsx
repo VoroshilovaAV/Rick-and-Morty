@@ -1,4 +1,5 @@
 import React from 'react';
+import CardModal from '../cardModal/CardModal';
 import Modal from '../modal/Modal';
 import './card.scss';
 
@@ -31,7 +32,11 @@ export default class Card extends React.Component<ICard, State> {
     return (
       <>
         <button className="card-button" onClick={this.toggleModal}>
-          {this.state.isModalShown && <Modal currentData={this.props} />}
+          {this.state.isModalShown && (
+            <Modal>
+              <CardModal currentData={this.props} />
+            </Modal>
+          )}
           <div data-testid="card-component" className="card">
             <div className="card__title">
               <h3>{this.props.name}</h3>
