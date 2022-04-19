@@ -3,21 +3,21 @@ import { ICard } from '../card/Card';
 import './cardModal.scss';
 import '../card/card.scss';
 
-export function CardModal(currentData: ICard) {
+export function CardModal(props: ICard) {
   return (
     <div className="modal__content" onClick={(e) => e.stopPropagation()}>
       <div className="card__title">
-        <h3>{currentData.name}</h3>
+        <h3>{props.name}</h3>
         <hr />
       </div>
       <div className="card__content">
-        <img className="card__img" src={currentData.image} alt="card image" />
+        <img className="card__img" src={props.image} alt="card image" />
         <ul>
-          <li>Gender: {currentData.gender}</li>
-          <li>Species: {currentData.species}</li>
-          <li>Status: {currentData.status}</li>
-          <li>Type: {currentData.type}</li>
-          <li>Created: {currentData.created}</li>
+          <li>Gender: {props.gender}</li>
+          <li>Species: {props.species}</li>
+          <li>Status: {props.status}</li>
+          <li>Type: {props.type}</li>
+          <li>Created: {props.created}</li>
         </ul>
       </div>
     </div>
