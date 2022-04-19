@@ -1,19 +1,23 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
-export class Portal extends React.Component {
-  el = document.createElement('div');
+export function Portal(children: React.PropsWithChildren<{ example?: string }>) {
+  const [modalContainer] = useState(document.createElement('div'));
+  useEffect(() => {
+    let modalRoot = document.getElementById('modal-root');
 
-  componentDidMount() {
-    document.body.appendChild(this.el);
-  }
+    if (!modalRoot) {
+      const tempEl = document.createElement('div');
+      tempEl.id = 'modal-root';
+      document.body.append(tempEl);
+      modalRoot = tempEl;
+    }
 
-  componentWillUnmount() {
-    document.body.removeChild(this.el);
-  }
+    modalRoot.appendChild(modalContainer);
+    return function cleanup() {
+      modalRoot?.removeChild(modalContainer);
+    };
+  }, [modalContainer]);
 
-  render() {
-    const { children } = this.props;
-    return ReactDOM.createPortal(children, this.el);
-  }
+  return ReactDOM.createPortal(children, modalContainer);
 }
