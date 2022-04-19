@@ -29,7 +29,7 @@ export default class Search extends React.Component<Props, State> {
     this.setState({ value: value });
   }
 
-  handleSubmit(event: { preventDefault: () => void }) {
+  handleSubmit(event: React.MouseEvent<HTMLFormElement>) {
     event.preventDefault();
     this.getData();
   }
