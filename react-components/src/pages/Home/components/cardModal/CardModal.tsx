@@ -9,7 +9,7 @@ type Props = { currentData: ICard };
 export default class CardModal extends React.Component<Props> {
   render() {
     return (
-      <div className="modal__content" onClick={(e) => e.stopPropagation()}>
+      <>
         <div className="card__title">
           <h3>{this.props.currentData.name}</h3>
           <hr />
@@ -24,7 +24,7 @@ export default class CardModal extends React.Component<Props> {
             <li>Created: {this.props.currentData.created}</li>
           </ul>
         </div>
-      </div>
+      </>
     );
   }
 }

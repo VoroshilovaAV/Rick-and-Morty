@@ -64,7 +64,7 @@ export default class Form extends React.Component<Props, State> {
     if (this.state.validateData.length !== 0) await this.validate();
   }
 
-  async handleSubmit(event: { preventDefault: () => void }) {
+  async handleSubmit(event: React.MouseEvent<HTMLFormElement>) {
     event.preventDefault();
     await this.validate();
     if (this.state.validateData.length !== 0) {
