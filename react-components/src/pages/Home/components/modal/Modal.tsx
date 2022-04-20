@@ -10,7 +10,7 @@ const Modal: React.FC<Props> = ({ children }) => {
 
   return modalRoot
     ? ReactDOM.createPortal(
-        <div className="modal">
+        <div data-testid="modal" className="modal">
           <ModalOverlay />
           <div className="modal__content" onClick={(e) => e.stopPropagation()}>
             {children}
