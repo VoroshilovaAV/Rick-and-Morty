@@ -77,7 +77,6 @@ describe('Home page', () => {
   });
   test('renders preloader', async () => {
     render(<Home />);
-    expect(screen.getByTestId('preloader')).toBeInTheDocument();
-    screen.debug();
+    expect(await screen.getByTestId('preloader')).toBeInTheDocument();
   });
 });
