@@ -1,5 +1,5 @@
 import './modalOverlay.scss';
 
-export function ModalOverlay() {
+export default function ModalOverlay() {
   return <div className="modal__overlay"></div>;
 }

@@ -71,13 +71,17 @@ describe('Home page', () => {
     });
   });
   test('renders modal window', async () => {
-    render(<Home />);
+    render(
+      <>
+        <div id="modal"></div>
+        <Home />
+      </>
+    );
     userEvent.click(await screen.findByText(/Abadango/i));
     expect(screen.getByTestId('modal')).toBeInTheDocument();
   });
   test('renders preloader', async () => {
     render(<Home />);
     expect(screen.getByTestId('preloader')).toBeInTheDocument();
-    screen.debug();
   });
 });
