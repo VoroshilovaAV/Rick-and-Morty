@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Search from './components/search/Search';
-import Card from './components/card/Card';
+import { Card } from './components/card/Card';
 import { CharacterResult } from './interfaces';
 
 import preloader from '../../assets/images/preloader.gif';
