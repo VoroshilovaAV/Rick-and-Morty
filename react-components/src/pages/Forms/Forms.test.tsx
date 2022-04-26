@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 
 import App from '../../App';
-import Forms from './Forms';
+import { Forms } from './Forms';
 
 const createCard = (name: string, surname: string, date: string, country: string) => {
   global.URL.createObjectURL = jest.fn();
