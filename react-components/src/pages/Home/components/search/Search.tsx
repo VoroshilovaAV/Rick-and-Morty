@@ -1,76 +1,80 @@
-import React from 'react';
+import React, { SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import { CharacterResult, CharactersData } from '../../interfaces';
 import './search.scss';
 
-type Props = { setHomeState: (currentData: Array<CharacterResult>, errorMessage: string) => void };
-type State = { value: string };
+type Props = {
+  setHomeState(currentData: React.SetStateAction<CharacterResult[]>, errorMessage: string): void;
+};
 
-export default class Search extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = { value: '' };
+const Search: React.FC<Props> = ({ setHomeState }) => {
+  const [value, setValue] = useState(calculateValue);
+
+  const refValue = useRef('');
+  refValue.current = value;
+
+  function calculateValue() {
+    const currentValue = localStorage.getItem('searchValue') || null;
+    return currentValue !== null ? JSON.parse(currentValue) : '';
   }
 
-  async componentDidMount() {
-    if (localStorage.getItem('searchValue')) {
-      await this.setState({ value: JSON.parse(localStorage.getItem('searchValue') || '') });
-    }
-    this.getData();
-  }
-
-  componentWillUnmount() {
-    localStorage.setItem('searchValue', JSON.stringify(this.state.value));
-  }
-
-  handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const value = event.target.value;
-    this.setState({ value: value });
-  }
-
-  handleSubmit(event: React.MouseEvent<HTMLFormElement>) {
-    event.preventDefault();
-    this.getData();
-  }
-
-  getErrorMessage(error: unknown) {
-    if (error instanceof Error) return error.message;
-    return String(error);
-  }
-
-  async getData() {
+  const getData = useCallback(async () => {
     const api = 'https://rickandmortyapi.com/api/character';
-    const base = this.state.value !== '' ? `${api}/?name=${this.state.value}` : `${api}`;
+    const base = value !== '' ? `${api}/?name=${value}` : `${api}`;
     try {
       const response = await fetch(`${base}`);
       if (!response.ok) {
         throw Error('No data was found for this query');
       } else {
         const data: CharactersData = await response.json();
-        this.props.setHomeState(data.results, '');
+        setHomeState(data.results, '');
       }
     } catch (error) {
-      this.props.setHomeState([], this.getErrorMessage(error));
+      setHomeState([], getErrorMessage(error));
     }
+  }, [setHomeState, value]);
+
+  useEffect(() => {
+    if (localStorage.getItem('searchValue')) {
+      setValue(JSON.parse(localStorage.getItem('searchValue') || ''));
+    }
+    getData();
+    return () => {
+      localStorage.setItem('searchValue', JSON.stringify(refValue.current));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const inputValue = event.target.value;
+    setValue(inputValue);
   }
 
-  render() {
-    return (
-      <div className="wrap">
-        <form className="search" onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            className="search__term"
-            placeholder="Search card"
-            onChange={this.handleChange}
-            value={this.state.value}
-          />
-          <button type="submit" className="search__button">
-            &#128269;
-          </button>
-        </form>
-      </div>
-    );
+  function handleSubmit(event: React.MouseEvent<HTMLFormElement>) {
+    event.preventDefault();
+    getData();
   }
-}
+
+  function getErrorMessage(error: unknown) {
+    if (error instanceof Error) return error.message;
+    return String(error);
+  }
+
+  return (
+    <div className="wrap">
+      <form className="search" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          className="search__term"
+          placeholder="Search card"
+          onChange={handleChange}
+          value={value}
+        />
+        <button type="submit" className="search__button">
+          &#128269;
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default Search;
