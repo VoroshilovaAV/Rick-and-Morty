@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Form from './components/form/Form';
-import Subscriber from './components/subscriber/Subscriber';
+import { Subscriber } from './components/subscriber/Subscriber';
 
 export interface FormState {
   name: string;

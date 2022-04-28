@@ -1,5 +1,5 @@
-export default function ErrorMessage(props: { validateData: Array<string>; input: string }) {
-  return props.validateData.includes(props.input) ? (
+export function ErrorMessage(props: { validateData: string; input: string }) {
+  return props.validateData !== undefined ? (
     <p className="forms__name_error">
       {props.input == 'agree' ? 'click here' : `enter a valid ${props.input}`}
     </p>
