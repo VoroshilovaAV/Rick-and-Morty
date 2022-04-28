@@ -5,7 +5,7 @@ import AboutUs from './pages/AboutUs/AboutUs';
 import NotFound from './pages/NotFound/NotFound';
 import Forms from './pages/Forms/Forms';
 
-function App() {
+const App = () => {
   return (
     <Routes>
       <Route path="/" element={<AppLayout />}>
@@ -16,6 +16,6 @@ function App() {
       </Route>
     </Routes>
   );
-}
+};
 
 export default App;

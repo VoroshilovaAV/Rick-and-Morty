@@ -1,7 +1,7 @@
 import './subscriber.scss';
 import { FormState } from '../../Forms';
 
-export default function Subscriber(props: { item: FormState }) {
+const Subscriber = (props: { item: FormState }) => {
   return (
     <>
       <div className="wrapper">
@@ -20,4 +20,6 @@ export default function Subscriber(props: { item: FormState }) {
       </div>
     </>
   );
-}
+};
+
+export default Subscriber;

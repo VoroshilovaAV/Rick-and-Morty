@@ -1,5 +1,7 @@
 import './modalOverlay.scss';
 
-export default function ModalOverlay() {
+const ModalOverlay = () => {
   return <div className="modal__overlay"></div>;
-}
+};
+
+export default ModalOverlay;

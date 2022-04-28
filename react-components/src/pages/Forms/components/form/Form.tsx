@@ -1,239 +1,166 @@
-import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+
 import { FormState } from '../../Forms';
 import ErrorMessage from '../error/ErrorMessage';
+
 import './form.scss';
 import './switcher.scss';
 import './input-file.scss';
 
 type Props = { setFormState: (currentCard: FormState) => void };
-type State = {
-  country: string;
-  file: string;
-  validateData: Array<string>;
-  isDisabled: boolean;
-  message: string;
-  id: number;
+
+const Form: React.FC<Props> = ({ setFormState }) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isDirty },
+  } = useForm();
+
+  const [file, setFile] = useState('');
+  const [id, setId] = useState(0);
+  const [message, setMessage] = useState('');
+
+  const onSubmit = handleSubmit((data) => {
+    const cardState = {
+      name: data.name ?? '',
+      surname: data.surname ?? '',
+      date: data.date ?? '',
+      country: data.country,
+      file: URL.createObjectURL(data.file[0]) ?? '',
+      gender: data.gender ? 'Women' : 'Man',
+      id: id,
+    };
+    setFormState(cardState);
+    reset();
+    setMessage('ok');
+    setTimeout(() => {
+      setMessage('');
+    }, 2500);
+    setFile('');
+    setId((current) => current + 1);
+  });
+
+  return (
+    <>
+      <form onSubmit={onSubmit}>
+        <fieldset className="forms">
+          <label className="forms__name">
+            Name:
+            <br />
+            <input
+              data-testid="name"
+              type="text"
+              {...register('name', {
+                required: true,
+                minLength: 3,
+                maxLength: 15,
+                pattern: /^[a-z]+$/i,
+              })}
+            />
+            <ErrorMessage validateData={errors.name} input="name" />
+          </label>
+          <label className="forms__surname">
+            Surname:
+            <br />
+            <input
+              type="text"
+              data-testid="surname"
+              {...register('surname', {
+                required: true,
+                minLength: 3,
+                maxLength: 15,
+                pattern: /^[a-z]+$/i,
+              })}
+            />
+            {<ErrorMessage validateData={errors.surname} input="surname" />}
+          </label>
+          <label className="forms__date">
+            Date of Birth:
+            <br />
+            <input
+              type="date"
+              data-testid="date"
+              {...register('date', {
+                required: true,
+              })}
+            />
+            {<ErrorMessage validateData={errors.date} input="date" />}
+          </label>
+          <label htmlFor="input__country" className="forms__country">
+            Country:
+            <br />
+          </label>
+          <select
+            id="input__country"
+            data-testid="country"
+            defaultValue="USA"
+            {...register('country')}
+          >
+            <option value="USA">USA</option>
+            <option value="Russia">Russia</option>
+            <option value="Belarus">Belarus</option>
+            <option value="Ukraine">Ukraine</option>
+            <option value="Poland">Poland</option>
+            <option value="UK">UK</option>
+          </select>
+          <br />
+          <label
+            htmlFor="forms__input"
+            className={
+              file
+                ? 'forms__file_select'
+                : errors.file !== undefined
+                ? 'forms__file_red'
+                : 'forms__file'
+            }
+          >
+            {file ? 'Avatar selected' : 'Upload an avatar'}
+            <input
+              type="file"
+              data-testid="file"
+              id="forms__input"
+              {...register('file', {
+                required: true,
+                onChange: () => setFile('file'),
+              })}
+            />
+          </label>
+          <span className="forms__text">Gender:</span>
+          <div>
+            <span>&nbsp;&nbsp;Man&nbsp;&nbsp;</span>
+            <label className="forms__checkbox">
+              <input type="checkbox" {...register('gender')} />
+              <span className="forms__slider round"></span>
+            </label>
+            <span>Woman</span>
+          </div>
+          <br />
+          <span>I agree to the processing of personal data:</span>
+          <label className="forms__checkbox_last">
+            <input
+              type="checkbox"
+              data-testid="agree"
+              {...register('checkbox', { required: true })}
+            />
+            {<ErrorMessage validateData={errors.checkbox} input="agree" />}
+          </label>
+          <input
+            type="submit"
+            value="Submit"
+            className="forms__submit"
+            disabled={!isDirty || Object.keys(errors).length > 0}
+          />
+          {message === 'ok' ? (
+            <p className="forms__name_ok">data saved successfully</p>
+          ) : (
+            <p className="forms__name_hide">hide</p>
+          )}
+        </fieldset>
+      </form>
+    </>
+  );
 };
 
-export default class Form extends React.Component<Props, State> {
-  nameInput: React.RefObject<HTMLInputElement>;
-  surnameInput: React.RefObject<HTMLInputElement>;
-  dateInput: React.RefObject<HTMLInputElement>;
-  genderInput: React.RefObject<HTMLInputElement>;
-  checkboxInput: React.RefObject<HTMLInputElement>;
-  form: React.RefObject<HTMLFormElement>;
-  constructor(props: Props) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleChangeImg = this.handleChangeImg.bind(this);
-    this.form = React.createRef();
-    this.nameInput = React.createRef();
-    this.surnameInput = React.createRef();
-    this.dateInput = React.createRef();
-    this.genderInput = React.createRef();
-    this.checkboxInput = React.createRef();
-    this.state = {
-      country: 'USA',
-      file: '',
-      validateData: [],
-      isDisabled: true,
-      message: '',
-      id: 0,
-    };
-  }
-
-  async handleChange(
-    event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
-  ) {
-    if (event.target.name == 'country') {
-      const value = event.target.value;
-      this.setState((prevState) => ({
-        ...prevState,
-        country: value,
-      }));
-    }
-    this.state.validateData.length !== 0
-      ? await this.validate()
-      : this.setState({ isDisabled: false });
-  }
-
-  async handleChangeImg(event: React.ChangeEvent<HTMLInputElement>) {
-    const imgFile = event.target.files;
-    await this.setState({ file: imgFile ? URL.createObjectURL(imgFile[0]) : '' });
-    if (this.state.validateData.length !== 0) await this.validate();
-  }
-
-  async handleSubmit(event: React.MouseEvent<HTMLFormElement>) {
-    event.preventDefault();
-    await this.validate();
-    if (this.state.validateData.length !== 0) {
-      this.setState({ isDisabled: true });
-    } else {
-      const cardState = {
-        name: this.nameInput.current?.value ?? '',
-        surname: this.surnameInput.current?.value ?? '',
-        date: this.dateInput.current?.value ?? '',
-        country: this.state.country,
-        file: this.state.file,
-        gender: this.genderInput.current?.checked ? 'Women' : 'Man',
-        id: this.state.id,
-      };
-      this.form.current?.reset();
-      this.setState({ message: 'ok' });
-      setTimeout(() => {
-        this.setState({ message: '' });
-      }, 2500);
-      this.props.setFormState(cardState);
-      this.setState({ file: '', id: this.state.id + 1 });
-    }
-  }
-
-  isNotValidString(testString: string | undefined) {
-    const minLength = 3;
-    const maxLength = 15;
-    if (testString)
-      return (
-        testString.length < minLength ||
-        testString.length > maxLength ||
-        !/^[a-zA-Z]+$/.test(testString)
-      );
-  }
-
-  async validate() {
-    const errors = [];
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
-    const inputDate = Date.parse(this.dateInput.current?.value || '');
-    this.setState({ validateData: [] });
-    if (this.isNotValidString(this.nameInput.current?.value) || this.nameInput.current?.value == '')
-      errors.push('name');
-    if (
-      this.isNotValidString(this.surnameInput.current?.value) ||
-      this.surnameInput.current?.value == ''
-    )
-      errors.push('surname');
-    if (
-      this.dateInput.current?.value == '' ||
-      inputDate > today ||
-      inputDate < new Date('1900-01-01').valueOf()
-    )
-      errors.push('date');
-    if (!this.checkboxInput.current?.checked) errors.push('agree');
-    if (this.state.file == '') errors.push('file');
-    await this.setState({ validateData: errors });
-    if (this.state.validateData.length == 0) this.setState({ isDisabled: false });
-  }
-
-  render() {
-    return (
-      <>
-        <form onSubmit={this.handleSubmit} ref={this.form}>
-          <fieldset className="forms">
-            <label className="forms__name">
-              Name:
-              <br />
-              <input
-                data-testid="name"
-                type="text"
-                ref={this.nameInput}
-                onChange={this.handleChange}
-              />
-              <ErrorMessage validateData={this.state.validateData} input="name" />
-            </label>
-            <label className="forms__surname">
-              Surname:
-              <br />
-              <input
-                type="text"
-                data-testid="surname"
-                ref={this.surnameInput}
-                onChange={this.handleChange}
-              />
-              <ErrorMessage validateData={this.state.validateData} input="surname" />
-            </label>
-            <label className="forms__date">
-              Date of Birth:
-              <br />
-              <input
-                type="date"
-                data-testid="date"
-                ref={this.dateInput}
-                onChange={this.handleChange}
-              />
-              <ErrorMessage validateData={this.state.validateData} input="date" />
-            </label>
-            <label htmlFor="input__country" className="forms__country">
-              Country:
-              <br />
-            </label>
-            <select
-              id="input__country"
-              data-testid="country"
-              name="country"
-              onChange={this.handleChange}
-            >
-              <option value="USA">USA</option>
-              <option value="Russia">Russia</option>
-              <option value="Belarus">Belarus</option>
-              <option value="Ukraine">Ukraine</option>
-              <option value="Poland">Poland</option>
-              <option value="UK">UK</option>
-            </select>
-            <br />
-            <label
-              htmlFor="forms__input"
-              className={
-                this.state.file
-                  ? 'forms__file_select'
-                  : this.state.validateData.includes('file')
-                  ? 'forms__file_red'
-                  : 'forms__file'
-              }
-            >
-              {this.state.file ? 'Avatar selected' : 'Upload an avatar'}
-              <input
-                type="file"
-                data-testid="file"
-                id="forms__input"
-                name="file"
-                onChange={this.handleChangeImg}
-              />
-            </label>
-            <span className="forms__text">Gender:</span>
-            <div>
-              <span>&nbsp;&nbsp;Man&nbsp;&nbsp;</span>
-              <label className="forms__checkbox">
-                <input type="checkbox" ref={this.genderInput} onChange={this.handleChange} />
-                <span className="forms__slider round"></span>
-              </label>
-              <span>Woman</span>
-            </div>
-            <br />
-            <span>I agree to the processing of personal data:</span>
-            <label className="forms__checkbox_last">
-              <input
-                type="checkbox"
-                data-testid="agree"
-                ref={this.checkboxInput}
-                onChange={this.handleChange}
-              />
-              <ErrorMessage validateData={this.state.validateData} input="agree" />
-            </label>
-            <input
-              type="submit"
-              value="Submit"
-              className="forms__submit"
-              disabled={this.state.isDisabled}
-            />
-            {this.state.message.includes('ok') ? (
-              <p className="forms__name_ok">data saved successfully</p>
-            ) : (
-              <p className="forms__name_hide">hide</p>
-            )}
-          </fieldset>
-        </form>
-      </>
-    );
-  }
-}
+export default Form;
