@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CardModal } from '../cardModal/CardModal';
+import CardModal from '../cardModal/CardModal';
 import Modal from '../modal/Modal';
 import './card.scss';
 
@@ -13,7 +13,7 @@ export interface ICard {
   gender: string;
 }
 
-export function Card(props: ICard) {
+const Card = (props: ICard) => {
   const [isModalShown, setModal] = useState(false);
 
   return (
@@ -49,4 +49,6 @@ export function Card(props: ICard) {
       </button>
     </>
   );
-}
+};
+
+export default Card;

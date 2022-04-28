@@ -2,7 +2,7 @@ import './cardModal.scss';
 import '../card/card.scss';
 import { ICard } from '../card/Card';
 
-export function CardModal(currentData: ICard) {
+const CardModal = (currentData: ICard) => {
   return (
     <>
       <div className="card__title">
@@ -21,4 +21,6 @@ export function CardModal(currentData: ICard) {
       </div>
     </>
   );
-}
+};
+
+export default CardModal;

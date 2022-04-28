@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 
 import App from '../../App';
-import { Forms } from './Forms';
+import Forms from './Forms';
 
 const createCard = (name: string, surname: string, date: string, country: string) => {
   global.URL.createObjectURL = jest.fn();
@@ -30,7 +30,7 @@ describe('Forms page', () => {
     expect(formsHeader).toBeInTheDocument();
   });
 
-  test('showing validation errors', () => {
+  test('showing validation errors', async () => {
     render(<Forms />);
     const nameInput = screen.getByTestId('name');
     expect(nameInput).toContainHTML('');
@@ -38,7 +38,7 @@ describe('Forms page', () => {
       target: { value: 'test123123' },
     });
     userEvent.click(screen.getByDisplayValue('Submit'));
-    const nameError = screen.getByText(/enter a valid name/i);
+    const nameError = await screen.findByText(/enter a valid name/i);
     expect(nameError).toBeInTheDocument();
   });
 
@@ -50,10 +50,10 @@ describe('Forms page', () => {
     const date: HTMLInputElement = await screen.findByTestId('date');
     const country: HTMLInputElement = await screen.findByTestId('country');
     const file: HTMLInputElement = await screen.findByTestId('file');
-    expect(name.value).toBe('');
-    expect(surname.value).toBe('');
-    expect(date.value).toBe('');
-    expect(country.value).toBe('USA');
-    expect(file.value).toBe('');
+    expect(name).toContainHTML('');
+    expect(surname).toContainHTML('');
+    expect(date).toContainHTML('');
+    expect(country).toContainHTML('');
+    expect(file).toContainHTML('');
   });
 });

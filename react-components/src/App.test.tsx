@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import App from './App';
-import { Home } from './pages/Home/Home';
+import Home from './pages/Home/Home';
 
 import { MemoryRouter } from 'react-router-dom';
 import { mockLocalStorage } from './mocks/local-storage-mock';

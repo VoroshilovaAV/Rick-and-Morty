@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 
 import { FormState } from '../../Forms';
-import { ErrorMessage } from '../error/ErrorMessage';
+import ErrorMessage from '../error/ErrorMessage';
 
 import './form.scss';
 import './switcher.scss';

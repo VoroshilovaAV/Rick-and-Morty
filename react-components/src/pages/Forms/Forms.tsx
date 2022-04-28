@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Form from './components/form/Form';
-import { Subscriber } from './components/subscriber/Subscriber';
+import Subscriber from './components/subscriber/Subscriber';
 
 export interface FormState {
   name: string;
@@ -12,7 +12,7 @@ export interface FormState {
   id: number;
 }
 
-export function Forms() {
+const Forms = () => {
   const [subscribers, setSubscribers] = useState<Array<FormState>>([]);
 
   function setFormState(currentCard: FormState) {
@@ -30,4 +30,6 @@ export function Forms() {
       </div>
     </>
   );
-}
+};
+
+export default Forms;

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 
 import Search from './components/search/Search';
-import { Card } from './components/card/Card';
+import Card from './components/card/Card';
 import { CharacterResult } from './interfaces';
 
 import preloader from '../../assets/images/preloader.gif';
 import error from '../../assets/images/error.png';
 import './home.scss';
 
-export function Home() {
+const Home = () => {
   const [data, setData] = useState<Array<CharacterResult>>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -56,4 +56,6 @@ export function Home() {
       )}
     </>
   );
-}
+};
+
+export default Home;
