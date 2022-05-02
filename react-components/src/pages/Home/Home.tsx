@@ -13,14 +13,14 @@ const Home = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  function setHomeState(
+  const setHomeState = (
     currentData: React.SetStateAction<CharacterResult[]>,
     errorMessage: string
-  ) {
+  ) => {
     setData(currentData);
     setIsLoaded(true);
     setErrorMessage(errorMessage);
-  }
+  };
 
   return (
     <>
