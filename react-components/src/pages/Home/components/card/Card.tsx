@@ -15,6 +15,7 @@ export interface ICard {
 
 const Card = (props: ICard) => {
   const [isModalShown, setIsModalShown] = useState(false);
+  const { created, image, name, status, species, type, gender } = props;
 
   return (
     <>
@@ -22,27 +23,27 @@ const Card = (props: ICard) => {
         {isModalShown && (
           <Modal>
             <CardModal
-              created={props.created}
-              image={props.image}
-              name={props.name}
-              status={props.status}
-              species={props.species}
-              type={props.type}
-              gender={props.gender}
+              created={created}
+              image={image}
+              name={name}
+              status={status}
+              species={species}
+              type={type}
+              gender={gender}
             />
           </Modal>
         )}
         <div data-testid="card-component" className="card">
           <div className="card__title">
-            <h3>{props.name}</h3>
+            <h3>{name}</h3>
             <hr />
           </div>
           <div className="card__content">
-            <img className="card__img" src={props.image} alt="card image" />
+            <img className="card__img" src={image} alt="card image" />
             <ul>
-              <li>Gender: {props.gender}</li>
-              <li>Species: {props.species}</li>
-              <li>Status: {props.status}</li>
+              <li>Gender: {gender}</li>
+              <li>Species: {species}</li>
+              <li>Status: {status}</li>
             </ul>
           </div>
         </div>
