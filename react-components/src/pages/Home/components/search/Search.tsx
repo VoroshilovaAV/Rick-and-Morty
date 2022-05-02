@@ -7,15 +7,15 @@ type Props = {
 };
 
 const Search: React.FC<Props> = ({ setHomeState }) => {
+  const calculateValue = () => {
+    const currentValue = localStorage.getItem('searchValue') || null;
+    return currentValue !== null ? JSON.parse(currentValue) : '';
+  };
+
   const [value, setValue] = useState(calculateValue);
 
   const refValue = useRef('');
   refValue.current = value;
-
-  function calculateValue() {
-    const currentValue = localStorage.getItem('searchValue') || null;
-    return currentValue !== null ? JSON.parse(currentValue) : '';
-  }
 
   const getData = useCallback(async () => {
     const api = 'https://rickandmortyapi.com/api/character';
@@ -44,20 +44,20 @@ const Search: React.FC<Props> = ({ setHomeState }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     setValue(inputValue);
-  }
+  };
 
-  function handleSubmit(event: React.MouseEvent<HTMLFormElement>) {
+  const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
     getData();
-  }
+  };
 
-  function getErrorMessage(error: unknown) {
+  const getErrorMessage = (error: unknown) => {
     if (error instanceof Error) return error.message;
     return String(error);
-  }
+  };
 
   return (
     <div className="wrap">
