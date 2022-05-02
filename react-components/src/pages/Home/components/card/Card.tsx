@@ -14,11 +14,11 @@ export interface ICard {
 }
 
 const Card = (props: ICard) => {
-  const [isModalShown, setModal] = useState(false);
+  const [isModalShown, setIsModalShown] = useState(false);
 
   return (
     <>
-      <button className="card-button" onClick={() => setModal(!isModalShown)}>
+      <button className="card-button" onClick={() => setIsModalShown(!isModalShown)}>
         {isModalShown && (
           <Modal>
             <CardModal
