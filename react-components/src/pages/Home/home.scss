@@ -17,14 +17,43 @@
   margin-left: -32px;
 }
 
-.error__text{
+.error__text {
   text-align: center;
   font-size: 18px;
 }
 
-.error__img{
+.error__img {
   width: 25em;
   height: 18em;
   display: block;
-  margin: 8em auto 2em auto; 
+  margin: 8em auto 2em auto;
+}
+
+.filter-text {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 700;
+  color: rgb(0, 0, 0);
+}
+
+.wrapper-btn {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: 40px;
+}
+
+.filters{  
+  text-align: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 24.4em;
+  border-radius: 10px;
+  border: 3px solid #13b1a4;
+  padding: 8px;
 }

@@ -7,11 +7,17 @@ import { CharacterResult } from './interfaces';
 import preloader from '../../assets/images/preloader.gif';
 import error from '../../assets/images/error.png';
 import './home.scss';
+import FilterSwitcher from './components/filter/FilterSwitcher';
 
 const Home = () => {
   const [data, setData] = useState<Array<CharacterResult>>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const buttonInfo = [
+    { status: 'alive', id: 0 },
+    { status: 'dead', id: 1 },
+    { status: 'unknown', id: 2 },
+  ];
 
   const setHomeState = (
     currentData: React.SetStateAction<CharacterResult[]>,
@@ -26,6 +32,14 @@ const Home = () => {
     <>
       <h1 data-testid="home-page">Home page</h1>
       <Search setHomeState={setHomeState} />
+      <fieldset className="filters">
+        <p className="filter-text">Try status filters:</p>
+        <div className="wrapper-btn">
+          {buttonInfo.map((item) => (
+            <FilterSwitcher key={item.id} text={item.status} />
+          ))}
+        </div>
+      </fieldset>
       {!isLoaded ? (
         <img
           src={preloader}

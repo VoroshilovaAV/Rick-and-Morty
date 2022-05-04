@@ -1,4 +1,5 @@
-import React, { SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
+import { AppContext } from '../../../../reducer';
 import { CharacterResult, CharactersData } from '../../interfaces';
 import './search.scss';
 
@@ -7,19 +8,11 @@ type Props = {
 };
 
 const Search: React.FC<Props> = ({ setHomeState }) => {
-  const calculateValue = () => {
-    const currentValue = localStorage.getItem('searchValue') || null;
-    return currentValue !== null ? JSON.parse(currentValue) : '';
-  };
-
-  const [value, setValue] = useState(calculateValue);
-
-  const refValue = useRef('');
-  refValue.current = value;
+  const { state, dispatch } = useContext(AppContext);
 
   const getData = useCallback(async () => {
     const api = 'https://rickandmortyapi.com/api/character';
-    const base = value !== '' ? `${api}/?name=${value}` : `${api}`;
+    const base = state.searchValue !== '' ? `${api}/?name=${state.searchValue}` : `${api}`;
     try {
       const response = await fetch(`${base}`);
       if (!response.ok) {
@@ -31,22 +24,24 @@ const Search: React.FC<Props> = ({ setHomeState }) => {
     } catch (error) {
       setHomeState([], getErrorMessage(error));
     }
-  }, [setHomeState, value]);
+  }, [setHomeState, state.searchValue]);
 
   useEffect(() => {
-    if (localStorage.getItem('searchValue')) {
-      setValue(JSON.parse(localStorage.getItem('searchValue') || ''));
-    }
     getData();
     return () => {
-      localStorage.setItem('searchValue', JSON.stringify(refValue.current));
+      state.searchValue;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
-    setValue(inputValue);
+    dispatch({
+      type: 'SAVE_SEARCH_VALUE',
+      payload: {
+        searchValue: inputValue,
+      },
+    });
   };
 
   const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
@@ -67,7 +62,7 @@ const Search: React.FC<Props> = ({ setHomeState }) => {
           className="search__term"
           placeholder="Search card"
           onChange={handleChange}
-          value={value}
+          value={state.searchValue}
         />
         <button type="submit" className="search__button">
           &#128269;
