@@ -13,7 +13,7 @@ const FilterSwitcher = () => {
           value={state.statusValue}
           onChange={(e) =>
             dispatch({
-              type: 'SAVE_SIMPLE_VALUE',
+              type: 'SAVE_VALUE',
               payload: {
                 statusValue: e.target.value,
               },
@@ -32,7 +32,7 @@ const FilterSwitcher = () => {
           value={state.genderValue}
           onChange={(e) =>
             dispatch({
-              type: 'SAVE_SIMPLE_VALUE',
+              type: 'SAVE_VALUE',
               payload: {
                 genderValue: e.target.value,
               },
@@ -52,7 +52,7 @@ const FilterSwitcher = () => {
           value={state.speciesValue}
           onChange={(e) =>
             dispatch({
-              type: 'SAVE_SIMPLE_VALUE',
+              type: 'SAVE_VALUE',
               payload: {
                 speciesValue: e.target.value,
               },

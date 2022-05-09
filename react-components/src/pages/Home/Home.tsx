@@ -1,33 +1,29 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import Search from './components/search/Search';
 import Card from './components/card/Card';
-import { CharacterResult } from './interfaces';
+import FilterSwitcher from './components/filter/FilterSwitcher';
+import { AppContext } from '../../reducer/reducer';
 
 import preloader from '../../assets/images/preloader.gif';
 import error from '../../assets/images/error.png';
 import './home.scss';
-import FilterSwitcher from './components/filter/FilterSwitcher';
 
 const Home = () => {
-  const [data, setData] = useState<Array<CharacterResult>>([]);
+  const { state } = useContext(AppContext);
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const setHomeState = (
-    currentData: React.SetStateAction<CharacterResult[]>,
-    errorMessage: string
-  ) => {
-    setData(currentData);
+  useEffect(() => {
     setIsLoaded(true);
-    setErrorMessage(errorMessage);
-  };
+    setErrorMessage(state.error);
+  }, [state.error, state.results, state.genderValue, state.speciesValue, state.statusValue]);
 
   return (
     <>
       <h1 data-testid="home-page"> Home page</h1>
-      <Search setHomeState={setHomeState} />
+      <Search />
       <fieldset className="filters">
         <p className="filter-text">Try filters:</p>
         <div className="wrapper__checkboxes">
@@ -48,7 +44,7 @@ const Home = () => {
         </div>
       ) : (
         <div className="wrapper">
-          {data.map((item) => (
+          {state.results.map((item) => (
             <Card
               key={item.id}
               created={item.created}

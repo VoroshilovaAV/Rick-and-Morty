@@ -6,6 +6,14 @@ export const GlobalState = {
   statusValue: '',
   genderValue: '',
   speciesValue: '',
+  info: {
+    count: 0,
+    pages: 1,
+    next: null,
+    prev: null,
+  },
+  results: [],
+  error: '',
 };
 
 export const AppContext = createContext<{
@@ -16,7 +24,7 @@ export const AppContext = createContext<{
 export const reducer = (state: GlobalStateType, action: ActionsType) => {
   const { type, payload } = action;
   switch (type) {
-    case 'SAVE_SIMPLE_VALUE':
+    case 'SAVE_VALUE':
       return { ...state, ...payload };
     default:
       return state;

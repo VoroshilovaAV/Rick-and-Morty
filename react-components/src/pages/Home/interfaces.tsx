@@ -27,4 +27,5 @@ export interface CharactersData {
     prev: string | null;
   };
   results: Array<CharacterResult>;
+  error?: string;
 }

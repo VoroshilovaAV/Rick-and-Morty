@@ -1,13 +1,9 @@
 import React, { useCallback, useContext, useEffect } from 'react';
 import { AppContext } from '../../../../reducer/reducer';
-import { CharacterResult, CharactersData } from '../../interfaces';
+import { CharactersData } from '../../interfaces';
 import './search.scss';
 
-type Props = {
-  setHomeState(currentData: React.SetStateAction<CharacterResult[]>, errorMessage: string): void;
-};
-
-const Search: React.FC<Props> = ({ setHomeState }) => {
+const Search = () => {
   const { state, dispatch } = useContext(AppContext);
 
   const getData = useCallback(async () => {
@@ -25,12 +21,36 @@ const Search: React.FC<Props> = ({ setHomeState }) => {
         throw Error('No data was found for this query');
       } else {
         const data: CharactersData = await response.json();
-        setHomeState(data.results, '');
+        dispatch({
+          type: 'SAVE_VALUE',
+          payload: {
+            info: {
+              count: data.info.count,
+              pages: data.info.pages,
+              next: data.info.next,
+              prev: data.info.prev,
+            },
+            results: data.results,
+            error: '',
+          },
+        });
       }
     } catch (error) {
-      setHomeState([], getErrorMessage(error));
+      dispatch({
+        type: 'SAVE_VALUE',
+        payload: {
+          info: {
+            count: 0,
+            pages: 1,
+            next: null,
+            prev: null,
+          },
+          results: [],
+          error: getErrorMessage(error),
+        },
+      });
     }
-  }, [setHomeState, state.genderValue, state.searchValue, state.speciesValue, state.statusValue]);
+  }, [dispatch, state]);
 
   useEffect(() => {
     getData();
@@ -43,7 +63,7 @@ const Search: React.FC<Props> = ({ setHomeState }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     dispatch({
-      type: 'SAVE_SIMPLE_VALUE',
+      type: 'SAVE_VALUE',
       payload: {
         searchValue: inputValue,
       },
