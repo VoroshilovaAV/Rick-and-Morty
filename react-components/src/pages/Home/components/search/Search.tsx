@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect } from 'react';
-import { AppContext } from '../../../../reducer';
+import { AppContext } from '../../../../reducer/reducer';
 import { CharacterResult, CharactersData } from '../../interfaces';
 import './search.scss';
 
@@ -12,7 +12,13 @@ const Search: React.FC<Props> = ({ setHomeState }) => {
 
   const getData = useCallback(async () => {
     const api = 'https://rickandmortyapi.com/api/character';
-    const base = state.searchValue !== '' ? `${api}/?name=${state.searchValue}` : `${api}`;
+    const filter = `status=${state.statusValue !== 'all' ? state.statusValue : ''}&gender=${
+      state.genderValue !== 'all' ? state.genderValue : ''
+    }&species=${state.speciesValue !== 'all' ? state.speciesValue : ''}`;
+    const base =
+      state.searchValue !== ''
+        ? `${api}/?name=${state.searchValue}&${filter}`
+        : `${api}/?${filter}`;
     try {
       const response = await fetch(`${base}`);
       if (!response.ok) {
@@ -24,7 +30,7 @@ const Search: React.FC<Props> = ({ setHomeState }) => {
     } catch (error) {
       setHomeState([], getErrorMessage(error));
     }
-  }, [setHomeState, state.searchValue]);
+  }, [setHomeState, state.genderValue, state.searchValue, state.speciesValue, state.statusValue]);
 
   useEffect(() => {
     getData();
@@ -32,12 +38,12 @@ const Search: React.FC<Props> = ({ setHomeState }) => {
       state.searchValue;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [state.genderValue, state.speciesValue, state.statusValue]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     dispatch({
-      type: 'SAVE_SEARCH_VALUE',
+      type: 'SAVE_SIMPLE_VALUE',
       payload: {
         searchValue: inputValue,
       },

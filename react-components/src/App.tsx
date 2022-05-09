@@ -6,7 +6,7 @@ import Home from './pages/Home/Home';
 import AboutUs from './pages/AboutUs/AboutUs';
 import NotFound from './pages/NotFound/NotFound';
 import Forms from './pages/Forms/Forms';
-import { AppContext, GlobalState, reducer } from './reducer';
+import { AppContext, GlobalState, reducer } from './reducer/reducer';
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, GlobalState);
