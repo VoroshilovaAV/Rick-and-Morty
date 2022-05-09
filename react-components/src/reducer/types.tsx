@@ -1,3 +1,4 @@
+import { FormState } from '../pages/Forms/Forms';
 import { CharacterResult } from '../pages/Home/interfaces';
 
 export type GlobalStateType = {
@@ -11,40 +12,42 @@ export type GlobalStateType = {
     next: string | null;
     prev: string | null;
   };
+  FormCard: Array<FormState>;
   results: Array<CharacterResult>;
   error: string;
+  id: number;
 };
 
 type searchValueType = {
-  type: 'SAVE_VALUE';
+  type: 'SAVE_SEARCH';
   payload: {
     searchValue: string;
   };
 };
 
 type StatusFilterType = {
-  type: 'SAVE_VALUE';
+  type: 'SAVE_STATUS';
   payload: {
     statusValue: string;
   };
 };
 
 type GenderFilterType = {
-  type: 'SAVE_VALUE';
+  type: 'SAVE_GENDER';
   payload: {
     genderValue: string;
   };
 };
 
 type SpeciesFilterType = {
-  type: 'SAVE_VALUE';
+  type: 'SAVE_SPECIES';
   payload: {
     speciesValue: string;
   };
 };
 
 type CardsType = {
-  type: 'SAVE_VALUE';
+  type: 'SAVE_CARDS';
   payload: {
     info: {
       count: number;
@@ -57,9 +60,25 @@ type CardsType = {
   };
 };
 
+type FormCardType = {
+  type: 'SAVE_FORM_CARDS';
+  payload: {
+    FormCard: Array<FormState>;
+  };
+};
+
+type IdType = {
+  type: 'SAVE_ID';
+  payload: {
+    id: number;
+  };
+};
+
 export type ActionsType =
   | searchValueType
   | StatusFilterType
   | GenderFilterType
   | SpeciesFilterType
-  | CardsType;
+  | FormCardType
+  | CardsType
+  | IdType;

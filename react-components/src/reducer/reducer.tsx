@@ -14,6 +14,8 @@ export const GlobalState = {
   },
   results: [],
   error: '',
+  FormCard: [],
+  id: 0,
 };
 
 export const AppContext = createContext<{
@@ -24,7 +26,19 @@ export const AppContext = createContext<{
 export const reducer = (state: GlobalStateType, action: ActionsType) => {
   const { type, payload } = action;
   switch (type) {
-    case 'SAVE_VALUE':
+    case 'SAVE_SEARCH':
+      return { ...state, ...payload };
+    case 'SAVE_STATUS':
+      return { ...state, ...payload };
+    case 'SAVE_GENDER':
+      return { ...state, ...payload };
+    case 'SAVE_SPECIES':
+      return { ...state, ...payload };
+    case 'SAVE_CARDS':
+      return { ...state, ...payload };
+    case 'SAVE_FORM_CARDS':
+      return { ...state, ...payload };
+    case 'SAVE_ID':
       return { ...state, ...payload };
     default:
       return state;

@@ -11,7 +11,6 @@ import './home.scss';
 
 const Home = () => {
   const { state } = useContext(AppContext);
-
   const [isLoaded, setIsLoaded] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 

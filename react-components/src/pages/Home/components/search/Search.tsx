@@ -22,7 +22,7 @@ const Search = () => {
       } else {
         const data: CharactersData = await response.json();
         dispatch({
-          type: 'SAVE_VALUE',
+          type: 'SAVE_CARDS',
           payload: {
             info: {
               count: data.info.count,
@@ -37,7 +37,7 @@ const Search = () => {
       }
     } catch (error) {
       dispatch({
-        type: 'SAVE_VALUE',
+        type: 'SAVE_CARDS',
         payload: {
           info: {
             count: 0,
@@ -63,7 +63,7 @@ const Search = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     dispatch({
-      type: 'SAVE_VALUE',
+      type: 'SAVE_SEARCH',
       payload: {
         searchValue: inputValue,
       },

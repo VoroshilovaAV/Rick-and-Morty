@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../../reducer/reducer';
 import Form from './components/form/Form';
 import Subscriber from './components/subscriber/Subscriber';
 
@@ -13,18 +14,34 @@ export interface FormState {
 }
 
 const Forms = () => {
+  const { state, dispatch } = useContext(AppContext);
   const [subscribers, setSubscribers] = useState<Array<FormState>>([]);
 
-  function setFormState(currentCard: FormState) {
+  const setFormState = (currentCard: FormState) => {
     setSubscribers([...subscribers, currentCard]);
-  }
+  };
+
+  useEffect(() => {
+    if (state.FormCard.length !== 0 && subscribers.length === 0) {
+      setSubscribers([...subscribers, ...state.FormCard]);
+    }
+    if (subscribers.length !== 0) {
+      dispatch({
+        type: 'SAVE_FORM_CARDS',
+        payload: {
+          FormCard: subscribers,
+        },
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subscribers]);
 
   return (
     <>
       <h1>Create a subscriber card</h1>
       <Form setFormState={setFormState} />
       <div className="wrapper">
-        {subscribers.map((item: FormState) => {
+        {state.FormCard.map((item: FormState) => {
           return <Subscriber item={item} key={item.id} />;
         })}
       </div>

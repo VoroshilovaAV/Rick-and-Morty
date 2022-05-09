@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
+import { AppContext } from '../../../../reducer/reducer';
 import { FormState } from '../../Forms';
 import ErrorMessage from '../error/ErrorMessage';
 
@@ -18,8 +19,8 @@ const Form: React.FC<Props> = ({ setFormState }) => {
     formState: { errors, isDirty },
   } = useForm();
 
+  const { state, dispatch } = useContext(AppContext);
   const [file, setFile] = useState('');
-  const [id, setId] = useState(0);
   const [message, setMessage] = useState('');
 
   const onSubmit = handleSubmit((data) => {
@@ -30,7 +31,7 @@ const Form: React.FC<Props> = ({ setFormState }) => {
       country: data.country,
       file: URL.createObjectURL(data.file[0]) ?? '',
       gender: data.gender ? 'Women' : 'Man',
-      id: id,
+      id: state.id,
     };
     setFormState(cardState);
     reset();
@@ -39,7 +40,12 @@ const Form: React.FC<Props> = ({ setFormState }) => {
       setMessage('');
     }, 2500);
     setFile('');
-    setId((current) => current + 1);
+    dispatch({
+      type: 'SAVE_ID',
+      payload: {
+        id: state.id + 1,
+      },
+    });
   });
 
   return (
