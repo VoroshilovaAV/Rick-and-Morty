@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import Search from './components/search/Search';
 import Card from './components/card/Card';
 import FilterSwitcher from './components/filter/FilterSwitcher';
 import { AppContext } from '../../reducer/reducer';
+import { PaginationContainer } from './components/pagination/PaginationContainer';
 
 import preloader from '../../assets/images/preloader.gif';
 import error from '../../assets/images/error.png';
 import './home.scss';
-import { PaginationContainer } from './components/pagination/PaginationContainer';
 
 const Home = () => {
   const { state } = useContext(AppContext);

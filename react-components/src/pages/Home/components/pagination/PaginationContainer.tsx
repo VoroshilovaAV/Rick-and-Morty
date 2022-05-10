@@ -5,8 +5,7 @@ import { Pagination } from './Pagination';
 export const PaginationContainer = () => {
   const { state, dispatch } = useContext(AppContext);
 
-  const [page, setPage] = useState(1);
-  const totalPages = state.info.pages;
+  const [page, setPage] = useState(state.currentPage);
   const handlePages = (updatePage: number) => {
     setPage(updatePage);
   };
@@ -23,7 +22,7 @@ export const PaginationContainer = () => {
 
   return (
     <div className="container">
-      <Pagination page={page} totalPages={totalPages} handlePagination={handlePages} />
+      <Pagination page={page} totalPages={state.info.pages} handlePagination={handlePages} />
     </div>
   );
 };
