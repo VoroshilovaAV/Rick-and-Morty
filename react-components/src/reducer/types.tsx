@@ -16,6 +16,7 @@ export type GlobalStateType = {
   results: Array<CharacterResult>;
   error: string;
   id: number;
+  currentPage: number;
 };
 
 type searchValueType = {
@@ -74,6 +75,13 @@ type IdType = {
   };
 };
 
+type CurrentPageType = {
+  type: 'SAVE_CURRENT_PAGE';
+  payload: {
+    currentPage: number;
+  };
+};
+
 export type ActionsType =
   | searchValueType
   | StatusFilterType
@@ -81,4 +89,5 @@ export type ActionsType =
   | SpeciesFilterType
   | FormCardType
   | CardsType
-  | IdType;
+  | IdType
+  | CurrentPageType;

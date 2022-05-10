@@ -10,7 +10,7 @@ const Search = () => {
     const api = 'https://rickandmortyapi.com/api/character';
     const filter = `status=${state.statusValue !== 'all' ? state.statusValue : ''}&gender=${
       state.genderValue !== 'all' ? state.genderValue : ''
-    }&species=${state.speciesValue !== 'all' ? state.speciesValue : ''}`;
+    }&species=${state.speciesValue !== 'all' ? state.speciesValue : ''}&page=${state.currentPage}`;
     const base =
       state.searchValue !== ''
         ? `${api}/?name=${state.searchValue}&${filter}`
@@ -58,7 +58,7 @@ const Search = () => {
       state.searchValue;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.genderValue, state.speciesValue, state.statusValue]);
+  }, [state.genderValue, state.speciesValue, state.statusValue, state.currentPage]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
