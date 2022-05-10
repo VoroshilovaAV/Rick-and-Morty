@@ -14,9 +14,9 @@ const App = () => {
   return (
     <AppContext.Provider value={{ state, dispatch }}>
       <Routes>
+        <Route path="/home/:id" element={<CardModal />} />
         <Route path="/" element={<AppLayout />}>
           <Route index element={<Home />} />
-          <Route path="/home/:id" element={<CardModal />} />
           <Route path="forms" element={<Forms />} />
           <Route path="about" element={<AboutUs />} />
           <Route path="*" element={<NotFound />} />

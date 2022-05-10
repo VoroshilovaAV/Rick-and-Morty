@@ -41,7 +41,9 @@ const CardModal = () => {
 
   return (
     <>
-      <h1>Card {id}</h1>
+      <header className="header__fullCard">
+        <h1>Card {id}</h1>
+      </header>
       <div className="wrapper">
         <button className="button__redirect" onClick={goHome}>
           &#8592; Back
