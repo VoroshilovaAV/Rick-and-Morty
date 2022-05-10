@@ -14,9 +14,19 @@ export const GlobalState = {
   },
   results: [],
   error: '',
-  FormCard: [],
+  formCard: [],
   id: 0,
   currentPage: 1,
+  currentCard: {
+    id: 0,
+    created: '',
+    image: '',
+    name: '',
+    status: '',
+    species: '',
+    type: '',
+    gender: '',
+  },
 };
 
 export const AppContext = createContext<{
@@ -42,6 +52,8 @@ export const reducer = (state: GlobalStateType, action: ActionsType) => {
     case 'SAVE_ID':
       return { ...state, ...payload };
     case 'SAVE_CURRENT_PAGE':
+      return { ...state, ...payload };
+    case 'SAVE_CURRENT_CARD':
       return { ...state, ...payload };
     default:
       return state;

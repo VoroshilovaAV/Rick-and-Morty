@@ -20,15 +20,6 @@ const Home = () => {
     setErrorMessage(state.error);
   }, [state.error, state.results, state.genderValue, state.speciesValue, state.statusValue]);
 
-  // useEffect(() => {
-  // }, []);
-
-  // const handlePageClick = (event: { selected: number }) => {
-  //   const newOffset = (event.selected * itemsPerPage) % items.length;
-  //   console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
-  //   setItemOffset(newOffset);
-  // };
-
   return (
     <>
       <h1 data-testid="home-page"> Home page</h1>
@@ -57,6 +48,7 @@ const Home = () => {
           <div className="wrapper">
             {state.results.map((item) => (
               <Card
+                id={item.id}
                 key={item.id}
                 created={item.created}
                 image={item.image}

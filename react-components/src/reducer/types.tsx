@@ -1,5 +1,5 @@
 import { FormState } from '../pages/Forms/Forms';
-import { CharacterResult } from '../pages/Home/interfaces';
+import { CharacterResult, CurrentCard } from '../pages/Home/interfaces';
 
 export type GlobalStateType = {
   searchValue: string;
@@ -12,11 +12,12 @@ export type GlobalStateType = {
     next: string | null;
     prev: string | null;
   };
-  FormCard: Array<FormState>;
+  formCard: Array<FormState>;
   results: Array<CharacterResult>;
   error: string;
   id: number;
   currentPage: number;
+  currentCard: CurrentCard;
 };
 
 type searchValueType = {
@@ -64,7 +65,7 @@ type CardsType = {
 type FormCardType = {
   type: 'SAVE_FORM_CARDS';
   payload: {
-    FormCard: Array<FormState>;
+    formCard: Array<FormState>;
   };
 };
 
@@ -82,6 +83,22 @@ type CurrentPageType = {
   };
 };
 
+type CurrentCardType = {
+  type: 'SAVE_CURRENT_CARD';
+  payload: {
+    currentCard: {
+      id: number;
+      created: string;
+      image: string;
+      name: string;
+      status: string;
+      species: string;
+      type: string;
+      gender: string;
+    };
+  };
+};
+
 export type ActionsType =
   | searchValueType
   | StatusFilterType
@@ -90,4 +107,5 @@ export type ActionsType =
   | FormCardType
   | CardsType
   | IdType
-  | CurrentPageType;
+  | CurrentPageType
+  | CurrentCardType;

@@ -1,38 +1,13 @@
-import { useState } from 'react';
-import CardModal from '../cardModal/CardModal';
-import Modal from '../modal/Modal';
+import { Link } from 'react-router-dom';
+import { CurrentCard } from '../../interfaces';
 import './card.scss';
 
-export interface ICard {
-  created: string;
-  image: string;
-  name: string;
-  status: string;
-  species: string;
-  type: string;
-  gender: string;
-}
-
-const Card = (props: ICard) => {
-  const [isModalShown, setIsModalShown] = useState(false);
-  const { created, image, name, status, species, type, gender } = props;
+const Card = (props: CurrentCard) => {
+  const { image, name, status, species, gender, id } = props;
 
   return (
     <>
-      <button className="card-button" onClick={() => setIsModalShown(!isModalShown)}>
-        {isModalShown && (
-          <Modal>
-            <CardModal
-              created={created}
-              image={image}
-              name={name}
-              status={status}
-              species={species}
-              type={type}
-              gender={gender}
-            />
-          </Modal>
-        )}
+      <Link to={`/home/${id}`}>
         <div data-testid="card-component" className="card">
           <div className="card__title">
             <h3>{name}</h3>
@@ -47,7 +22,7 @@ const Card = (props: ICard) => {
             </ul>
           </div>
         </div>
-      </button>
+      </Link>
     </>
   );
 };

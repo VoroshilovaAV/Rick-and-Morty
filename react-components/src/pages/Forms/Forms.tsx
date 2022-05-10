@@ -22,14 +22,14 @@ const Forms = () => {
   };
 
   useEffect(() => {
-    if (state.FormCard.length !== 0 && subscribers.length === 0) {
-      setSubscribers([...subscribers, ...state.FormCard]);
+    if (state.formCard.length !== 0 && subscribers.length === 0) {
+      setSubscribers([...subscribers, ...state.formCard]);
     }
     if (subscribers.length !== 0) {
       dispatch({
         type: 'SAVE_FORM_CARDS',
         payload: {
-          FormCard: subscribers,
+          formCard: subscribers,
         },
       });
     }
@@ -41,7 +41,7 @@ const Forms = () => {
       <h1>Create a subscriber card</h1>
       <Form setFormState={setFormState} />
       <div className="wrapper">
-        {state.FormCard.map((item: FormState) => {
+        {state.formCard.map((item: FormState) => {
           return <Subscriber item={item} key={item.id} />;
         })}
       </div>
