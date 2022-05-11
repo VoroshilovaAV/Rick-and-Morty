@@ -9,12 +9,16 @@ export interface Props {
 }
 
 export const Pagination: React.FC<Props> = ({ page, totalPages, handlePagination }) => {
+  const firstPage = 1;
+  const twoPages = 2;
+  const maxNumberLeftButtons = 3;
+
   return (
     <div className={styles.pagination}>
       <div className={styles.wrapper}>
-        {page !== 1 && (
+        {page !== firstPage && (
           <button
-            onClick={() => handlePagination(page - 1)}
+            onClick={() => handlePagination(--page)}
             type="button"
             className={classNames([styles.wrapper__page, styles.wrapper__sides].join(' '))}
           >
@@ -22,34 +26,34 @@ export const Pagination: React.FC<Props> = ({ page, totalPages, handlePagination
           </button>
         )}
         <button
-          onClick={() => handlePagination(1)}
+          onClick={() => handlePagination(firstPage)}
           type="button"
           className={classNames(styles.wrapper__page, {
-            [styles.active]: page === 1,
+            [styles.active]: page === firstPage,
           })}
         >
-          1
+          {firstPage}
         </button>
-        {page > 3 && <div className={styles.wrapper__separator}>...</div>}
-        {page === totalPages && totalPages > 3 && (
+        {page > maxNumberLeftButtons && <div className={styles.wrapper__separator}>...</div>}
+        {page === totalPages && totalPages > maxNumberLeftButtons && (
           <button
-            onClick={() => handlePagination(page - 2)}
+            onClick={() => handlePagination(page - twoPages)}
             type="button"
             className={styles.wrapper__page}
           >
-            {page - 2}
+            {page - twoPages}
           </button>
         )}
-        {page > 2 && (
+        {page > twoPages && (
           <button
-            onClick={() => handlePagination(page - 1)}
+            onClick={() => handlePagination(--page)}
             type="button"
             className={styles.wrapper__page}
           >
-            {page - 1}
+            {page - firstPage}
           </button>
         )}
-        {page !== 1 && page !== totalPages && (
+        {page !== firstPage && page !== totalPages && (
           <button
             onClick={() => handlePagination(page)}
             type="button"
@@ -58,25 +62,25 @@ export const Pagination: React.FC<Props> = ({ page, totalPages, handlePagination
             {page}
           </button>
         )}
-        {page < totalPages - 1 && (
+        {page < totalPages - firstPage && (
           <button
-            onClick={() => handlePagination(page + 1)}
+            onClick={() => handlePagination(page + firstPage)}
             type="button"
             className={styles.wrapper__page}
           >
-            {page + 1}
+            {page + firstPage}
           </button>
         )}
-        {page === 1 && totalPages > 3 && (
+        {page === firstPage && totalPages > maxNumberLeftButtons && (
           <button
-            onClick={() => handlePagination(page + 2)}
+            onClick={() => handlePagination(page + twoPages)}
             type="button"
             className={styles.wrapper__page}
           >
-            {page + 2}
+            {page + twoPages}
           </button>
         )}
-        {page < totalPages - 2 && <div className={styles.wrapper__separator}>...</div>}
+        {page < totalPages - twoPages && <div className={styles.wrapper__separator}>...</div>}
         <button
           onClick={() => handlePagination(totalPages)}
           type="button"
@@ -88,7 +92,7 @@ export const Pagination: React.FC<Props> = ({ page, totalPages, handlePagination
         </button>
         {page !== totalPages && (
           <button
-            onClick={() => handlePagination(page + 1)}
+            onClick={() => handlePagination(++page)}
             type="button"
             className={[styles.wrapper__page, styles.wrapper__sides].join(' ')}
           >
