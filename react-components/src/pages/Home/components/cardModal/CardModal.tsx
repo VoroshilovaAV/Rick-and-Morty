@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 
 import { AppContext } from '../../../../reducer/reducer';
 
@@ -16,10 +16,13 @@ const CardModal = () => {
     navigate('/');
   };
 
-  useEffect(() => {
-    fetch(`https://rickandmortyapi.com/api/character/${id}`)
-      .then((res) => res.json())
-      .then((data) =>
+  const getCard = useCallback(async () => {
+    try {
+      const response = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
+      if (!response.ok) {
+        throw Error('No data was found for this query');
+      } else {
+        const data = await response.json();
         dispatch({
           type: 'SAVE_CURRENT_CARD',
           payload: {
@@ -34,8 +37,17 @@ const CardModal = () => {
               gender: data.gender,
             },
           },
-        })
-      );
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      navigate('/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    getCard();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
