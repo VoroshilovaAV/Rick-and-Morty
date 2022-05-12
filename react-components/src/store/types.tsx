@@ -1,5 +1,5 @@
 import { FormState } from '../pages/Forms/Forms';
-import { CharacterResult, CurrentCard } from '../pages/Home/interfaces';
+import { CharacterResult } from '../pages/Home/interfaces';
 
 export type GlobalStateType = {
   searchValue: string;
@@ -14,10 +14,11 @@ export type GlobalStateType = {
   };
   formCard: Array<FormState>;
   results: Array<CharacterResult>;
+  isLoaded: boolean;
   error: string;
   id: number;
   currentPage: number;
-  currentCard: CurrentCard;
+  currentCard: CurrentCardPayloadType;
 };
 
 export type CardsPayloadType = {
@@ -36,14 +37,12 @@ export type FormCardPayloadType = {
 };
 
 export type CurrentCardPayloadType = {
-  currentCard: {
-    id: number;
-    created: string;
-    image: string;
-    name: string;
-    status: string;
-    species: string;
-    type: string;
-    gender: string;
-  };
+  id: number;
+  created: string;
+  image: string;
+  name: string;
+  status: string;
+  species: string;
+  type: string;
+  gender: string;
 };

@@ -1,25 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import Search from './components/search/Search';
 import Card from './components/card/Card';
 import FilterSwitcher from './components/filter/FilterSwitcher';
 import { PaginationContainer } from './components/pagination/PaginationContainer';
-import { useAppSelector } from '../../store/customHooks';
+import { useAppDispatch, useAppSelector } from '../../store/customHooks';
+import { setIsLoaded } from '../../store/appSlice';
 
 import preloader from '../../assets/images/preloader.gif';
 import errorImg from '../../assets/images/error.png';
 import './home.scss';
 
 const Home = () => {
-  const { error, results, genderValue, speciesValue, statusValue } = useAppSelector(
+  const { error, results, genderValue, speciesValue, statusValue, isLoaded } = useAppSelector(
     (state) => state.app
   );
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setIsLoaded(true);
-    setErrorMessage(error);
+    dispatch(setIsLoaded(true));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, results, genderValue, speciesValue, statusValue]);
 
   return (
@@ -39,10 +39,10 @@ const Home = () => {
           className="preloader__img"
           data-testid="preloader"
         ></img>
-      ) : errorMessage ? (
+      ) : error !== '' ? (
         <div className="error">
           <img src={errorImg} alt="error image" className="error__img" />
-          <div className="error__text">{errorMessage}</div>
+          <div className="error__text">{error}</div>
         </div>
       ) : (
         <>

@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect } from 'react';
 
-import { saveCards, saveSearch } from '../../../../store/appSlice';
+import { saveSearch } from '../../../../store/appSlice';
 import { useAppDispatch, useAppSelector } from '../../../../store/customHooks';
-import { CharactersData } from '../../interfaces';
+import { fetchCards } from '../../../../store/appSlice';
 
 import './search.scss';
 
@@ -18,39 +18,7 @@ const Search = () => {
       genderValue !== 'all' ? genderValue : ''
     }&species=${speciesValue !== 'all' ? speciesValue : ''}&page=${currentPage}`;
     const base = searchValue !== '' ? `${api}/?name=${searchValue}&${filter}` : `${api}/?${filter}`;
-    try {
-      const response = await fetch(`${base}`);
-      if (!response.ok) {
-        throw Error('No data was found for this query');
-      } else {
-        const data: CharactersData = await response.json();
-        dispatch(
-          saveCards({
-            info: {
-              count: data.info.count,
-              pages: data.info.pages,
-              next: data.info.next,
-              prev: data.info.prev,
-            },
-            results: data.results,
-            error: '',
-          })
-        );
-      }
-    } catch (error) {
-      dispatch(
-        saveCards({
-          info: {
-            count: 0,
-            pages: 1,
-            next: null,
-            prev: null,
-          },
-          results: [],
-          error: getErrorMessage(error),
-        })
-      );
-    }
+    dispatch(fetchCards(base));
   }, [currentPage, dispatch, genderValue, searchValue, speciesValue, statusValue]);
 
   useEffect(() => {
@@ -69,11 +37,6 @@ const Search = () => {
   const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
     getData();
-  };
-
-  const getErrorMessage = (error: unknown) => {
-    if (error instanceof Error) return error.message;
-    return String(error);
   };
 
   return (

@@ -3,14 +3,15 @@ import { useParams } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../../../store/customHooks';
-import { saveCurrentCard } from '../../../../store/appSlice';
+import { fetchCard } from '../../../../store/appSlice';
 
+import preloader from '../../../../assets/images/preloader.gif';
 import './cardModal.scss';
 import '../card/card.scss';
 
 const CardModal = () => {
   const navigate = useNavigate();
-  const currentCard = useAppSelector((state) => state.app.currentCard);
+  const { currentCard, isLoaded } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
 
   const { id } = useParams();
@@ -20,32 +21,8 @@ const CardModal = () => {
   };
 
   const getCard = useCallback(async () => {
-    try {
-      const response = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
-      if (!response.ok) {
-        throw Error('No data was found for this query');
-      } else {
-        const data = await response.json();
-        dispatch(
-          saveCurrentCard({
-            currentCard: {
-              id: data.id,
-              created: data.created,
-              image: data.image,
-              name: data.name,
-              status: data.status,
-              species: data.species,
-              type: data.type === '' ? 'unknown' : data.type,
-              gender: data.gender,
-            },
-          })
-        );
-      }
-    } catch (error) {
-      console.log(error);
-      goHome();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const base = `https://rickandmortyapi.com/api/character/${id}`;
+    dispatch(fetchCard(base));
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -62,20 +39,31 @@ const CardModal = () => {
         <button className="button__redirect" onClick={goHome}>
           &#8592; Back
         </button>
-        <div className="card__title">
-          <h3>{name}</h3>
-          <hr />
-        </div>
-        <div className="card__content">
-          <img className="card__img" src={image} alt="card image" />
-          <ul>
-            <li>Gender: {gender}</li>
-            <li>Species: {species}</li>
-            <li>Status: {status}</li>
-            <li>Type: {type}</li>
-            <li>Created: {created}</li>
-          </ul>
-        </div>
+        {!isLoaded ? (
+          <img
+            src={preloader}
+            alt="error image"
+            className="preloader__img"
+            data-testid="preloader"
+          ></img>
+        ) : (
+          <>
+            <div className="card__title">
+              <h3>{name}</h3>
+              <hr />
+            </div>
+            <div className="card__content">
+              <img className="card__img" src={image} alt="card image" />
+              <ul>
+                <li>Gender: {gender}</li>
+                <li>Species: {species}</li>
+                <li>Status: {status}</li>
+                <li>Type: {type}</li>
+                <li>Created: {created}</li>
+              </ul>
+            </div>
+          </>
+        )}
       </div>
     </>
   );

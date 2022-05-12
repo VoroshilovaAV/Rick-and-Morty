@@ -19,17 +19,6 @@ export interface CharacterResult {
   created: string;
 }
 
-export interface CurrentCard {
-  id: number;
-  created: string;
-  image: string;
-  name: string;
-  status: string;
-  species: string;
-  type: string;
-  gender: string;
-}
-
 export interface CharactersData {
   info: {
     count: number;

@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { CurrentCard } from '../../interfaces';
+import { CurrentCardPayloadType } from '../../../../store/types';
 import './card.scss';
 
-const Card = (props: CurrentCard) => {
+const Card = (props: CurrentCardPayloadType) => {
   const { image, name, status, species, gender, id } = props;
 
   return (
