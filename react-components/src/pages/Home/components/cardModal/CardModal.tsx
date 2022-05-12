@@ -1,17 +1,20 @@
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router-dom';
-import { useCallback, useContext, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
-import { AppContext } from '../../../../reducer/reducer';
+import { useAppDispatch, useAppSelector } from '../../../../store/customHooks';
+import { saveCurrentCard } from '../../../../store/appSlice';
 
 import './cardModal.scss';
 import '../card/card.scss';
 
 const CardModal = () => {
   const navigate = useNavigate();
-  const { state, dispatch } = useContext(AppContext);
+  const currentCard = useAppSelector((state) => state.app.currentCard);
+  const dispatch = useAppDispatch();
+
   const { id } = useParams();
-  const { created, image, name, status, species, type, gender } = state.currentCard;
+  const { created, image, name, status, species, type, gender } = currentCard;
   const goHome = () => {
     navigate('/');
   };
@@ -23,9 +26,8 @@ const CardModal = () => {
         throw Error('No data was found for this query');
       } else {
         const data = await response.json();
-        dispatch({
-          type: 'SAVE_CURRENT_CARD',
-          payload: {
+        dispatch(
+          saveCurrentCard({
             currentCard: {
               id: data.id,
               created: data.created,
@@ -36,8 +38,8 @@ const CardModal = () => {
               type: data.type === '' ? 'unknown' : data.type,
               gender: data.gender,
             },
-          },
-        });
+          })
+        );
       }
     } catch (error) {
       console.log(error);

@@ -1,24 +1,26 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Search from './components/search/Search';
 import Card from './components/card/Card';
 import FilterSwitcher from './components/filter/FilterSwitcher';
-import { AppContext } from '../../reducer/reducer';
 import { PaginationContainer } from './components/pagination/PaginationContainer';
+import { useAppSelector } from '../../store/customHooks';
 
 import preloader from '../../assets/images/preloader.gif';
-import error from '../../assets/images/error.png';
+import errorImg from '../../assets/images/error.png';
 import './home.scss';
 
 const Home = () => {
-  const { state } = useContext(AppContext);
+  const { error, results, genderValue, speciesValue, statusValue } = useAppSelector(
+    (state) => state.app
+  );
   const [isLoaded, setIsLoaded] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     setIsLoaded(true);
-    setErrorMessage(state.error);
-  }, [state.error, state.results, state.genderValue, state.speciesValue, state.statusValue]);
+    setErrorMessage(error);
+  }, [error, results, genderValue, speciesValue, statusValue]);
 
   return (
     <>
@@ -39,14 +41,14 @@ const Home = () => {
         ></img>
       ) : errorMessage ? (
         <div className="error">
-          <img src={error} alt="error image" className="error__img" />
+          <img src={errorImg} alt="error image" className="error__img" />
           <div className="error__text">{errorMessage}</div>
         </div>
       ) : (
         <>
           <PaginationContainer />
           <div className="wrapper">
-            {state.results.map((item) => (
+            {results.map((item) => (
               <Card
                 id={item.id}
                 key={item.id}

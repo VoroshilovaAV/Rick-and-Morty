@@ -1,29 +1,31 @@
-import React, { useCallback, useContext, useEffect } from 'react';
-import { AppContext } from '../../../../reducer/reducer';
+import React, { useCallback, useEffect } from 'react';
+
+import { saveCards, saveSearch } from '../../../../store/appSlice';
+import { useAppDispatch, useAppSelector } from '../../../../store/customHooks';
 import { CharactersData } from '../../interfaces';
+
 import './search.scss';
 
 const Search = () => {
-  const { state, dispatch } = useContext(AppContext);
+  const { genderValue, speciesValue, statusValue, currentPage, searchValue } = useAppSelector(
+    (state) => state.app
+  );
+  const dispatch = useAppDispatch();
 
   const getData = useCallback(async () => {
     const api = 'https://rickandmortyapi.com/api/character';
-    const filter = `status=${state.statusValue !== 'all' ? state.statusValue : ''}&gender=${
-      state.genderValue !== 'all' ? state.genderValue : ''
-    }&species=${state.speciesValue !== 'all' ? state.speciesValue : ''}&page=${state.currentPage}`;
-    const base =
-      state.searchValue !== ''
-        ? `${api}/?name=${state.searchValue}&${filter}`
-        : `${api}/?${filter}`;
+    const filter = `status=${statusValue !== 'all' ? statusValue : ''}&gender=${
+      genderValue !== 'all' ? genderValue : ''
+    }&species=${speciesValue !== 'all' ? speciesValue : ''}&page=${currentPage}`;
+    const base = searchValue !== '' ? `${api}/?name=${searchValue}&${filter}` : `${api}/?${filter}`;
     try {
       const response = await fetch(`${base}`);
       if (!response.ok) {
         throw Error('No data was found for this query');
       } else {
         const data: CharactersData = await response.json();
-        dispatch({
-          type: 'SAVE_CARDS',
-          payload: {
+        dispatch(
+          saveCards({
             info: {
               count: data.info.count,
               pages: data.info.pages,
@@ -32,13 +34,12 @@ const Search = () => {
             },
             results: data.results,
             error: '',
-          },
-        });
+          })
+        );
       }
     } catch (error) {
-      dispatch({
-        type: 'SAVE_CARDS',
-        payload: {
+      dispatch(
+        saveCards({
           info: {
             count: 0,
             pages: 1,
@@ -47,27 +48,22 @@ const Search = () => {
           },
           results: [],
           error: getErrorMessage(error),
-        },
-      });
+        })
+      );
     }
-  }, [dispatch, state]);
+  }, [currentPage, dispatch, genderValue, searchValue, speciesValue, statusValue]);
 
   useEffect(() => {
     getData();
     return () => {
-      state.searchValue;
+      searchValue;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.genderValue, state.speciesValue, state.statusValue, state.currentPage]);
+  }, [genderValue, speciesValue, statusValue, currentPage]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
-    dispatch({
-      type: 'SAVE_SEARCH',
-      payload: {
-        searchValue: inputValue,
-      },
-    });
+    dispatch(saveSearch(inputValue));
   };
 
   const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
@@ -88,7 +84,7 @@ const Search = () => {
           className="search__term"
           placeholder="Search card"
           onChange={handleChange}
-          value={state.searchValue}
+          value={searchValue}
         />
         <button type="submit" className="search__button">
           &#128269;

@@ -1,25 +1,16 @@
-import { useContext } from 'react';
-import { AppContext } from '../../../../reducer/reducer';
+import { saveGender, saveSpesies, saveStatus } from '../../../../store/appSlice';
+import { useAppDispatch, useAppSelector } from '../../../../store/customHooks';
 import './filterSwitcher.scss';
 
 const FilterSwitcher = () => {
-  const { state, dispatch } = useContext(AppContext);
+  const { genderValue, speciesValue, statusValue } = useAppSelector((state) => state.app);
+  const dispatch = useAppDispatch();
 
   return (
     <>
       <div className="wrapper-btn__toggle">
         <div className="filter__text">by status</div>
-        <select
-          value={state.statusValue}
-          onChange={(e) =>
-            dispatch({
-              type: 'SAVE_STATUS',
-              payload: {
-                statusValue: e.target.value,
-              },
-            })
-          }
-        >
+        <select value={statusValue} onChange={(e) => dispatch(saveStatus(e.target.value))}>
           <option value="all">all</option>
           <option value="alive">alive</option>
           <option value="dead">dead</option>
@@ -28,17 +19,7 @@ const FilterSwitcher = () => {
       </div>
       <div className="wrapper-btn__toggle">
         <div className="filter__text">by gender</div>
-        <select
-          value={state.genderValue}
-          onChange={(e) =>
-            dispatch({
-              type: 'SAVE_GENDER',
-              payload: {
-                genderValue: e.target.value,
-              },
-            })
-          }
-        >
+        <select value={genderValue} onChange={(e) => dispatch(saveGender(e.target.value))}>
           <option value="all">all</option>
           <option value="female">female</option>
           <option value="male">male</option>
@@ -48,17 +29,7 @@ const FilterSwitcher = () => {
       </div>
       <div className="wrapper-btn__toggle">
         <div className="filter__text">by species</div>
-        <select
-          value={state.speciesValue}
-          onChange={(e) =>
-            dispatch({
-              type: 'SAVE_SPECIES',
-              payload: {
-                speciesValue: e.target.value,
-              },
-            })
-          }
-        >
+        <select value={speciesValue} onChange={(e) => dispatch(saveSpesies(e.target.value))}>
           <option value="all">all</option>
           <option value="human">human</option>
           <option value="alien">alien</option>

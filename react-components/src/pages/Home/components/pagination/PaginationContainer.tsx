@@ -1,26 +1,19 @@
-import { useContext } from 'react';
-import { AppContext } from '../../../../reducer/reducer';
+import { saveCurrentPage } from '../../../../store/appSlice';
+import { useAppDispatch, useAppSelector } from '../../../../store/customHooks';
 import { Pagination } from './Pagination';
 
 export const PaginationContainer = () => {
-  const { state, dispatch } = useContext(AppContext);
+  const currentPage = useAppSelector((state) => state.app.currentPage);
+  const info = useAppSelector((state) => state.app.info);
+  const dispatch = useAppDispatch();
 
   const handlePages = (updatePage: number) => {
-    dispatch({
-      type: 'SAVE_CURRENT_PAGE',
-      payload: {
-        currentPage: updatePage,
-      },
-    });
+    dispatch(saveCurrentPage(updatePage));
   };
 
   return (
     <div className="container">
-      <Pagination
-        page={state.currentPage}
-        totalPages={state.info.pages}
-        handlePagination={handlePages}
-      />
+      <Pagination page={currentPage} totalPages={info.pages} handlePagination={handlePages} />
     </div>
   );
 };

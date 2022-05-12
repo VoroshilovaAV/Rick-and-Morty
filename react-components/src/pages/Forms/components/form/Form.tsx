@@ -1,9 +1,10 @@
 import { useForm } from 'react-hook-form';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
-import { AppContext } from '../../../../reducer/reducer';
 import { FormState } from '../../Forms';
 import ErrorMessage from '../error/ErrorMessage';
+import { useAppDispatch, useAppSelector } from '../../../../store/customHooks';
+import { saveId } from '../../../../store/appSlice';
 
 import './form.scss';
 import './switcher.scss';
@@ -18,8 +19,8 @@ const Form: React.FC<Props> = ({ setFormState }) => {
     reset,
     formState: { errors, isDirty },
   } = useForm();
-
-  const { state, dispatch } = useContext(AppContext);
+  const id = useAppSelector((state) => state.app.id);
+  const dispatch = useAppDispatch();
   const [file, setFile] = useState('');
   const [message, setMessage] = useState('');
 
@@ -31,7 +32,7 @@ const Form: React.FC<Props> = ({ setFormState }) => {
       country: data.country,
       file: URL.createObjectURL(data.file[0]) ?? '',
       gender: data.gender ? 'Women' : 'Man',
-      id: state.id,
+      id: id,
     };
     setFormState(cardState);
     reset();
@@ -40,12 +41,7 @@ const Form: React.FC<Props> = ({ setFormState }) => {
       setMessage('');
     }, 2500);
     setFile('');
-    dispatch({
-      type: 'SAVE_ID',
-      payload: {
-        id: state.id + 1,
-      },
-    });
+    dispatch(saveId(id + 1));
   });
 
   return (
