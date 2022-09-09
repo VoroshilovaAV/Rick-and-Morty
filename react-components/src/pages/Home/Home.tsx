@@ -24,7 +24,7 @@ const Home = () => {
 
   return (
     <>
-      <h1 data-testid="home-page"> Home page</h1>
+      <h1 data-testid="home-page">Rick and Morty characters</h1>
       <Search />
       <fieldset className="filters">
         <p className="filter-text">Try filters:</p>
@@ -62,6 +62,7 @@ const Home = () => {
               />
             ))}
           </div>
+          <PaginationContainer />
         </>
       )}
     </>
