@@ -35,7 +35,7 @@ const Forms = () => {
 
   return (
     <>
-      <h1>Create a subscriber card</h1>
+      <h1 className="createCardText">Create a subscriber card</h1>
       <Form setFormState={setFormState} />
       <div className="wrapper">
         {formCard.map((item: FormState) => {

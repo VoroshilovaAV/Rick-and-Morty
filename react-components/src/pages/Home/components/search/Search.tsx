@@ -45,7 +45,7 @@ const Search = () => {
         <input
           type="text"
           className="search__term"
-          placeholder="Search card"
+          placeholder="Search character"
           onChange={handleChange}
           value={searchValue}
         />

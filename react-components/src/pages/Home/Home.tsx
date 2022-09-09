@@ -9,6 +9,7 @@ import { setIsLoaded } from '../../store/appSlice';
 
 import preloader from '../../assets/images/preloader.gif';
 import errorImg from '../../assets/images/error.png';
+import welcomeImg from '../../assets/images/welcome.png';
 import './home.scss';
 
 const Home = () => {
@@ -24,7 +25,7 @@ const Home = () => {
 
   return (
     <>
-      <h1 data-testid="home-page">Rick and Morty characters</h1>
+      <img src={welcomeImg} alt="welcome image" className="welcome__img"></img>
       <Search />
       <fieldset className="filters">
         <p className="filter-text">Try filters:</p>
