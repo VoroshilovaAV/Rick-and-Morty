@@ -1,5 +1,8 @@
+import error404 from '../../assets/images/404.png';
+import './notfound.scss';
+
 const NotFound = () => {
-  return <h1 data-testid="error-page">404 Not Found</h1>;
+  return <img className="NotFoundImg" src={error404} alt="not found image" />;
 };
 
 export default NotFound;
