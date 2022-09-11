@@ -18,7 +18,18 @@ const Card = (props: CurrentCardPayloadType) => {
             <ul>
               <li>Gender: {gender}</li>
               <li>Species: {species}</li>
-              <li>Status: {status}</li>
+              <li>
+                Status: {status}{' '}
+                <span
+                  className={
+                    status === 'Alive'
+                      ? 'card__status__alive'
+                      : status === 'Dead'
+                      ? 'card__status__dead'
+                      : 'card__status__unknown'
+                  }
+                ></span>
+              </li>
             </ul>
           </div>
         </div>

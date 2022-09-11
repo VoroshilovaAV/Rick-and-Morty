@@ -84,6 +84,33 @@ $txt-color: #000000;
   flex-direction: row;
 }
 
+.card__status__alive {
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+  margin-left: 3px;
+  background: rgb(85, 204, 68);
+  border-radius: 50%;
+}
+
+.card__status__dead {
+  display: inline-block;
+  height: 8px;
+  width: 8px;  
+  margin-left: 3px;
+  background: rgb(204, 68, 68);
+  border-radius: 50%;
+}
+
+.card__status__unknown {
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+  margin-left: 3px;
+  background: rgb(237, 171, 57);
+  border-radius: 50%;
+}
+
 h3 {
   font-size: 18px;
   font-weight: 500;
