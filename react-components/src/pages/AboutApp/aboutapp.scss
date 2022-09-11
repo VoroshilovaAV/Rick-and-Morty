@@ -1,3 +1,24 @@
-.aboutUsText {
+.aboutAppText {
     padding-top: 1.5rem;
+}
+
+.aboutAppWrapper {    
+    padding: 3% 5%;
+}
+
+.aboutAppWrapper-text {
+    margin-bottom: 1%;  
+    font-size: 16px;
+}
+
+.aboutAppWrapper-text__link {
+    color: #1ec5b7;
+}
+
+.aboutAppWrapper-text__link:hover {
+    color: #11ddcc;
+}
+
+.aboutAppWrapper-img {
+    margin-left: 30vw;
 }
