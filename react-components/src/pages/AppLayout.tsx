@@ -12,7 +12,7 @@ export default function AppLayout() {
           Forms
         </NavLink>
         <NavLink to="/about" data-testid="about-link">
-          About us
+          About app
         </NavLink>
       </header>
       <main>

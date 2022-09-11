@@ -1,5 +1,13 @@
 $color-active: #13b1a4;
 
+.wrap {
+  width: 35%;
+  position: relative;
+  margin-top: 4.5em;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .search {
   width: 100%;
   display: flex;
@@ -10,11 +18,12 @@ $color-active: #13b1a4;
   border: 3px solid $color-active;
   border-right: none;
   padding: 5px;
-  height: 36px;
+  height: 56px;
   border-radius: 5px 0 0 5px;
   outline: none;
   color: #000000;
   margin-top: 0px;
+  font-size: 20px;
 }
 
 .search__term:focus {
@@ -23,7 +32,7 @@ $color-active: #13b1a4;
 
 .search__button {
   width: 40px;
-  height: 36px;
+  height: 56px;
   border: 1px solid $color-active;
   background: $color-active;
   text-align: center;
@@ -31,7 +40,7 @@ $color-active: #13b1a4;
   text-shadow: 0 0 0 rgb(255, 255, 255);
   border-radius: 0 5px 5px 0;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 25px;
 }
 
 .search__button:hover {
@@ -40,12 +49,4 @@ $color-active: #13b1a4;
 
 .search__button:active {
   opacity: 0.7;
-}
-
-.wrap {
-  width: 30%;
-  position: relative;
-  margin-top: 2.5em;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }

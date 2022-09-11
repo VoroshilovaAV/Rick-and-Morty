@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import AppLayout from './pages/AppLayout';
 import Home from './pages/Home/Home';
-import AboutUs from './pages/AboutUs/AboutUs';
+import AboutApp from './pages/AboutApp/AboutApp';
 import NotFound from './pages/NotFound/NotFound';
 import Forms from './pages/Forms/Forms';
 import CardModal from './pages/Home/components/cardModal/CardModal';
@@ -14,7 +14,7 @@ const App = () => {
       <Route path="/" element={<AppLayout />}>
         <Route index element={<Home />} />
         <Route path="forms" element={<Forms />} />
-        <Route path="about" element={<AboutUs />} />
+        <Route path="about" element={<AboutApp />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
