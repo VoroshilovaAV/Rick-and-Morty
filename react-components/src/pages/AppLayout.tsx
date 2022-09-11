@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom';
+import { Footer } from './Home/components/footer/Footer';
 
 export default function AppLayout() {
   return (
@@ -17,7 +18,7 @@ export default function AppLayout() {
       <main>
         <Outlet />
       </main>
-      <footer>RSS 2022</footer>
+      <Footer />
     </>
   );
 }
