@@ -12,19 +12,29 @@ body {
 }
 
 header {
+  display: flex;  
+  justify-content: space-between;
+  align-items: center;
   background-color: $color-bg;
-  padding: 2rem 0;
+  padding: 2em 0;
   text-align: center;
 }
-  header > a {
-      color: white;
-      font-size: 1.2em;
-      text-decoration: none;
-      padding: 0 1rem;
-  }
-  header > a:hover {
-      text-decoration: underline;
-  }
+
+.header-menu__item {    
+  color: white;
+  font-size: 1.2em;
+  text-decoration: none;
+  padding: 0 1rem;
+}
+
+.header-menu__item:hover {
+  text-decoration: underline;
+}
+
+.header-blank {
+  width: 30%;
+  max-width: 390px;  
+}
 
 h1 {
   text-align: center;
@@ -32,7 +42,7 @@ h1 {
 }
 
 main {
-  min-height: calc(100vh - 182px);   
+  min-height: calc(100vh - 200px);   
 }
   main a {
       text-decoration: none;

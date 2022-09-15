@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 
-import Search from './components/search/Search';
 import Card from './components/card/Card';
 import FilterSwitcher from './components/filter/FilterSwitcher';
 import { PaginationContainer } from './components/pagination/PaginationContainer';
@@ -26,7 +25,7 @@ const Home = () => {
   return (
     <>
       <img src={welcomeImg} alt="welcome image" className="welcome__img"></img>
-      <Search />
+      {/* <Search /> */}
       <fieldset className="filters">
         <p className="filter-text">Try filters:</p>
         <div className="wrapper__checkboxes">
