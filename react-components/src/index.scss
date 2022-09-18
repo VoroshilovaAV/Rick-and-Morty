@@ -26,7 +26,7 @@ $color-active: #27fbe9;
 body {
   margin: 0;
   background: #f2f2f2;
-  font-family: 'Open Sans', 'Abel', 'ABeeZee', sans-serif;
+  font-family: 'Abel', 'ABeeZee', sans-serif;
   letter-spacing: 1px;
 }
 
@@ -35,16 +35,21 @@ header {
   justify-content: space-between;
   align-items: center;
   background-color: $color-bg;
+  max-height: 99px;
   padding: 2em 0;
   text-align: center;
   font-size: 18px;
+}
+
+.header__center {
+  justify-content: center;
 }
 
 .header-menu__item {    
   color: white;
   font-size: 1.2em;
   text-decoration: none;
-  padding: 0 1rem;
+  padding: 0 1em;
 }
 
 .header-menu__item:hover {
@@ -63,7 +68,7 @@ h1 {
 }
 
 main {
-  min-height: calc(100vh - 200px);   
+  min-height: calc(100vh - 99px - 96px);   
 }
   main a {
       text-decoration: none;
@@ -76,4 +81,22 @@ main {
 .active {
   color: $color-active;
   cursor: default;
+}
+
+@media (max-width: 1024px) {
+  .header-menu__item {    
+    font-size: 1.2em;    
+  }
+  h1 {
+    font-size: 24px;   
+  }
+}
+
+@media (max-width: 425px) {
+  .header-menu__item {    
+    font-size: 1em;    
+  }
+  h1 {
+    font-size: 20px;   
+  }
 }

@@ -1,4 +1,5 @@
-import aboutImg from '../../assets/images/about.png';
+import { ReactComponent as AboutImg } from '../../assets/images/about.svg';
+
 import './aboutapp.scss';
 
 const AboutApp = () => {
@@ -32,7 +33,9 @@ const AboutApp = () => {
           When you switch between pages, all the data is saved.
         </p>
         <p className="aboutAppWrapper-text">Thank you for your visit!</p>
-        <img src={aboutImg} alt="about image" className="aboutAppWrapper-img" />
+        <div className="aboutAppWrapper-img">
+          <AboutImg />
+        </div>
       </div>
     </>
   );

@@ -59,3 +59,11 @@ input:checked + .forms__slider.hide:before {
 .forms__slider.round:before {
   border-radius: 50%;
 }
+
+@media (max-width: 375px) {
+  .forms__checkbox {     
+    width: 48px;
+    height: 27px;
+    margin: 0.6em 2em 0 2em;
+  }
+}

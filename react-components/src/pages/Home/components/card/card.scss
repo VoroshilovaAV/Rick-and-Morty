@@ -28,8 +28,6 @@
     url(/assets/fonts/roboto-v29-latin-700.woff) format('woff');
 }
 
-$card-width: 350px;
-$card-height: 250px;
 $h-color: #12a591;
 $active: #15ffe0;
 $txt-color: #000000;
@@ -50,8 +48,8 @@ $txt-color: #000000;
 }
 
 .card {
-  width: $card-width;
-  height: $card-height;
+  width: 350px;
+  height: 250px;
   display: flex;
   flex-direction: column;  
   border-radius: 10px;
@@ -140,4 +138,16 @@ li {
   line-height: 18px;
   text-align: left;
   margin: 0 0 0.5em 1em;
+}
+
+@media (max-width: 425px) {
+  .card {
+    width: 295px;
+    height: 240px;   
+  }
+
+  .card__img {
+    width: 8.3em;
+    height: 8.3em;    
+  }  
 }

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 
 import { saveSearch } from '../../../../store/appSlice';
-import { useAppDispatch, useAppSelector } from '../../../../store/customHooks';
+import useWindowDimensions, { useAppDispatch, useAppSelector } from '../../../../store/customHooks';
 import { fetchCards } from '../../../../store/appSlice';
 
 import './search.scss';
@@ -11,6 +11,7 @@ const Search = () => {
     (state) => state.app
   );
   const dispatch = useAppDispatch();
+  const { width } = useWindowDimensions();
 
   const getData = useCallback(async () => {
     const api = 'https://rickandmortyapi.com/api/character';
@@ -40,7 +41,7 @@ const Search = () => {
   };
 
   return (
-    <div className="wrap">
+    <div className={width <= 768 ? 'wrap__center' : 'wrap'}>
       <form className="search" onSubmit={handleSubmit}>
         <input
           type="text"

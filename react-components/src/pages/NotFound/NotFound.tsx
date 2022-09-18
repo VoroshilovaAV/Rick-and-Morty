@@ -1,8 +1,13 @@
-import error404 from '../../assets/images/404.png';
+import { ReactComponent as Error404 } from '../../assets/images/404.svg';
+
 import './notfound.scss';
 
 const NotFound = () => {
-  return <img className="NotFoundImg" src={error404} alt="not found image" />;
+  return (
+    <div className="NotFoundImg">
+      <Error404 />
+    </div>
+  );
 };
 
 export default NotFound;

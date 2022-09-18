@@ -9,7 +9,7 @@
 
 .aboutAppWrapper-text {
     margin-bottom: 1%;  
-    font-size: 16px;    
+    font-size: 20px;    
 }
 
 .aboutAppWrapper-text__link {
@@ -21,5 +21,32 @@
 }
 
 .aboutAppWrapper-img {
-    margin-left: 30vw;
+    margin-left: 32vw;
+    max-width: 22em;
+    max-height: 22em;
+    padding: 1rem;
 }
+
+@media (max-width: 425px) {
+    .aboutAppWrapper-img {
+        margin-left: 1%;
+        max-width: 22em;
+        max-height: 22em;
+    }
+
+    .aboutAppWrapper-text {
+        font-size: 14px;    
+    }
+  }
+
+@media (max-width: 375px) {
+    .aboutAppWrapper-img {
+        margin-left: 1%;
+        max-width: 22em;
+        max-height: 22em;
+    }
+
+    .aboutAppWrapper-text {
+        font-size: 14px;    
+    }
+  }

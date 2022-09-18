@@ -1,13 +1,18 @@
 $color-active: #13b1a4;
 
 .wrap {
-  width: 32%;
+  width: 30%;
   max-width: 400px;
-  padding-right: 3%;  
-  //position: relative;
-  //margin-top: 2.5em;
-  //left: 50%;
-  //transform: translate(-50%, -50%);
+  padding-right: 3%;   
+}
+
+.wrap__center {
+  width: 85%;
+  max-width: 450px;   
+  position: relative;
+  margin-top: 2.5em;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .search {

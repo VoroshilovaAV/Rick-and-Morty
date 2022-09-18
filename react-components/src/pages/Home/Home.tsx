@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
 
 import Card from './components/card/Card';
+import Search from './components/search/Search';
 import FilterSwitcher from './components/filter/FilterSwitcher';
+import { ReactComponent as WelcomeImg } from '../../assets/images/welcome.svg';
+import { ReactComponent as ErrorImg } from '../../assets/images/error.svg';
 import { PaginationContainer } from './components/pagination/PaginationContainer';
-import { useAppDispatch, useAppSelector } from '../../store/customHooks';
+import useWindowDimensions, { useAppDispatch, useAppSelector } from '../../store/customHooks';
 import { setIsLoaded } from '../../store/appSlice';
 
 import preloader from '../../assets/images/preloader.gif';
-import errorImg from '../../assets/images/error.png';
-import welcomeImg from '../../assets/images/welcome.png';
 import './home.scss';
 
 const Home = () => {
@@ -16,6 +17,7 @@ const Home = () => {
     (state) => state.app
   );
   const dispatch = useAppDispatch();
+  const { width } = useWindowDimensions();
 
   useEffect(() => {
     dispatch(setIsLoaded(true));
@@ -24,8 +26,8 @@ const Home = () => {
 
   return (
     <>
-      <img src={welcomeImg} alt="welcome image" className="welcome__img"></img>
-      {/* <Search /> */}
+      <WelcomeImg />
+      {width <= 768 && <Search />}
       <fieldset className="filters">
         <p className="filter-text">Try filters:</p>
         <div className="wrapper__checkboxes">
@@ -41,7 +43,9 @@ const Home = () => {
         ></img>
       ) : error !== '' ? (
         <div className="error">
-          <img src={errorImg} alt="error image" className="error__img" />
+          <div className="error__img">
+            <ErrorImg />{' '}
+          </div>
           <div className="error__text">{error}</div>
         </div>
       ) : (
