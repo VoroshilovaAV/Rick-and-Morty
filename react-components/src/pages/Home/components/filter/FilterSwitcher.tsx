@@ -1,4 +1,4 @@
-import { saveGender, saveSpesies, saveStatus } from '../../../../store/appSlice';
+import { saveCurrentPage, saveGender, saveSpesies, saveStatus } from '../../../../store/appSlice';
 import { useAppDispatch, useAppSelector } from '../../../../store/customHooks';
 import './filterSwitcher.scss';
 
@@ -10,7 +10,13 @@ const FilterSwitcher = () => {
     <>
       <div className="wrapper-btn__toggle">
         <div className="filter__text">by status</div>
-        <select value={statusValue} onChange={(e) => dispatch(saveStatus(e.target.value))}>
+        <select
+          value={statusValue}
+          onChange={(e) => {
+            dispatch(saveStatus(e.target.value));
+            dispatch(saveCurrentPage(1));
+          }}
+        >
           <option value="all">all</option>
           <option value="alive">alive</option>
           <option value="dead">dead</option>
@@ -19,7 +25,13 @@ const FilterSwitcher = () => {
       </div>
       <div className="wrapper-btn__toggle">
         <div className="filter__text">by gender</div>
-        <select value={genderValue} onChange={(e) => dispatch(saveGender(e.target.value))}>
+        <select
+          value={genderValue}
+          onChange={(e) => {
+            dispatch(saveGender(e.target.value));
+            dispatch(saveCurrentPage(1));
+          }}
+        >
           <option value="all">all</option>
           <option value="female">female</option>
           <option value="male">male</option>
@@ -29,7 +41,13 @@ const FilterSwitcher = () => {
       </div>
       <div className="wrapper-btn__toggle">
         <div className="filter__text">by species</div>
-        <select value={speciesValue} onChange={(e) => dispatch(saveSpesies(e.target.value))}>
+        <select
+          value={speciesValue}
+          onChange={(e) => {
+            dispatch(saveSpesies(e.target.value));
+            dispatch(saveCurrentPage(1));
+          }}
+        >
           <option value="all">all</option>
           <option value="human">human</option>
           <option value="alien">alien</option>
