@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../../../store/customHooks';
 import { fetchCard } from '../../../../store/appSlice';
 
 import preloader from '../../../../assets/images/preloader.gif';
-import './cardModal.scss';
+import './cardPage.scss';
 import '../card/card.scss';
 
 const CardModal = () => {

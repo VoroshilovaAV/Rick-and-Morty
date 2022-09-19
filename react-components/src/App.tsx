@@ -5,7 +5,7 @@ import Home from './pages/Home/Home';
 import AboutApp from './pages/AboutApp/AboutApp';
 import NotFound from './pages/NotFound/NotFound';
 import Forms from './pages/Forms/Forms';
-import CardModal from './pages/Home/components/cardModal/CardModal';
+import CardModal from './pages/Home/components/cardPage/cardPage';
 
 const App = () => {
   return (
