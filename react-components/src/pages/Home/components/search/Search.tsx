@@ -44,7 +44,7 @@ const Search = () => {
     <div className={width <= 768 ? 'wrap__center' : 'wrap'}>
       <form className="search" onSubmit={handleSubmit}>
         <input
-          type="text"
+          type="search"
           className="search__term"
           placeholder="Search character"
           onChange={handleChange}
