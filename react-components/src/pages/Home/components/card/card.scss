@@ -56,12 +56,13 @@ $txt-color: #000000;
   background-color: rgb(255, 255, 255);
   box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.5);
   text-align: center;
-  margin-bottom: 15px;   
+  margin-bottom: 15px; 
+  transition: 300ms;  
 }
 
 .card:hover{
-  box-shadow: 2px 2px 35px rgba(140, 241, 223, 0.5);  
-  border: 0.5px solid rgb(31, 228, 178);
+  box-shadow: 4px 4px 35px rgba(140, 241, 223, 0.5);  
+  border: 1px solid rgb(31, 228, 178);
 }
 
 .card__img {

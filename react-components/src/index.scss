@@ -50,10 +50,24 @@ header {
   font-size: 1.2em;
   text-decoration: none;
   padding: 0 1em;
+  transition: 3s;
 }
 
-.header-menu__item:hover {
-  text-decoration: underline;
+.underline {
+  display: inline-block;
+}
+
+.underline::after {
+  content: '';
+  width: 0px;
+  height: 2px;
+  display: block;
+  background: $color-active;
+  transition: 300ms;
+}
+
+.underline:hover::after {
+  width: 100%;
 }
 
 .header-blank {

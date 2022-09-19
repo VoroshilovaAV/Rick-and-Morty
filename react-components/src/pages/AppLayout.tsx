@@ -13,13 +13,13 @@ export default function AppLayout() {
         <header>
           <div className="header-blank"></div>
           <div className="header-menu">
-            <NavLink className="header-menu__item" to="/" data-testid="home-link">
+            <NavLink className="header-menu__item underline" to="/" data-testid="home-link">
               Home
             </NavLink>
-            <NavLink className="header-menu__item" to="/forms" data-testid="forms-link">
+            <NavLink className="header-menu__item underline" to="/forms" data-testid="forms-link">
               Forms
             </NavLink>
-            <NavLink className="header-menu__item" to="/about" data-testid="about-link">
+            <NavLink className="header-menu__item underline" to="/about" data-testid="about-link">
               About app
             </NavLink>
           </div>
@@ -27,13 +27,13 @@ export default function AppLayout() {
         </header>
       ) : (
         <header className="header__center">
-          <NavLink className="header-menu__item" to="/" data-testid="home-link">
+          <NavLink className="header-menu__item underline" to="/" data-testid="home-link">
             Home
           </NavLink>
-          <NavLink className="header-menu__item" to="/forms" data-testid="forms-link">
+          <NavLink className="header-menu__item underline" to="/forms" data-testid="forms-link">
             Forms
           </NavLink>
-          <NavLink className="header-menu__item" to="/about" data-testid="about-link">
+          <NavLink className="header-menu__item underline" to="/about" data-testid="about-link">
             About app
           </NavLink>
         </header>
