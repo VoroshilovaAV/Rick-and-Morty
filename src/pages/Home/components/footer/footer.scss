@@ -1,0 +1,38 @@
+footer {
+height: 6rem;
+background-color: #303434;
+}
+
+.footer-container {
+    height: 6rem;
+    padding: 0 1%;  
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-container-text {
+  color: white;
+  opacity: 0.7;
+  padding: 0 3%;
+}
+
+.footer-container-links {     
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; 
+    padding: 0 3%;  
+}
+
+.footer-container-link {
+    padding: 0 10px;    
+}
+
+.footer-container-img {
+    opacity: 0.7;
+    transition: all .5s ease;
+}
+
+.footer-container-img:hover {
+    opacity: 0.4;
+}

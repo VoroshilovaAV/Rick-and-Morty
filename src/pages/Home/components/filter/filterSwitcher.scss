@@ -1,0 +1,19 @@
+.filters{
+  margin-bottom: 25px;
+}
+
+.filter__text {
+  margin-top: 1em;
+  text-align: center;
+  font-family: 'Abel';
+  font-size: 16px;
+}
+
+.wrapper-btn__toggler {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: 40px;
+}

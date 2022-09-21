@@ -1,0 +1,56 @@
+#forms__input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1; 
+}
+
+.forms__file {
+  width: 10em;
+  height: 2.8em;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+  display: block;
+  font: 14px/40px Tahoma; 
+  transition: all 0.2s ease-in-out;  
+  color: rgb(255, 255, 255);
+  background: rgb(161, 159, 159);  
+}
+
+.forms__file_red {
+  width: 10em;
+  height: 2.8em;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+  display: block;
+  font: 14px/40px Tahoma; 
+  transition: all 0.2s ease-in-out;  
+  color: rgb(243, 57, 57);
+  background: rgb(214, 205, 205);  
+}
+
+.forms__file_select {
+  width: 10em;
+  height: 2.8em;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+  display: block;
+  font: 14px/40px Tahoma; 
+  transition: all 0.2s ease-in-out;  
+  color: #54eee1;
+  background: rgb(93, 86, 86);
+}
+
+.forms__file:hover {
+  color: #ffffff;
+  background: rgb(93, 86, 86);
+}
+
+.forms__text {
+ margin-top: 1.3em;
+}

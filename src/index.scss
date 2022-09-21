@@ -1,0 +1,116 @@
+@font-face {
+  font-family: 'ABeeZee';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('./assets/fonts/abeezee-v22-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./assets/fonts/abeezee-v22-latin-regular.woff') format('woff'), /* Modern Browsers */
+}
+
+@font-face {
+  font-family: 'Abel';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('./assets/fonts/abel-v18-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./assets/fonts/abel-v18-latin-regular.woff') format('woff'), /* Modern Browsers */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+$color-bg: #303434;
+$color-active: #27fbe9;
+
+body {
+  margin: 0;
+  background: #f2f2f2;
+  font-family: 'Abel', 'ABeeZee', sans-serif;
+  letter-spacing: 1px;
+}
+
+header {
+  display: flex;  
+  justify-content: space-between;
+  align-items: center;
+  background-color: $color-bg;
+  max-height: 99px;
+  padding: 2em 0;
+  text-align: center;
+  font-size: 18px;
+}
+
+.header__center {
+  justify-content: center;
+}
+
+.header-menu__item {    
+  color: white;
+  font-size: 1.2em;
+  text-decoration: none;
+  padding: 0 1em;
+  transition: 3s;
+}
+
+.underline {
+  display: inline-block;
+}
+
+.underline::after {
+  content: '';
+  width: 0px;
+  height: 2px;
+  display: block;
+  background: $color-active;
+  transition: 300ms;
+}
+
+.underline:hover::after {
+  width: 100%;
+}
+
+.header-blank {
+  width: 30%;
+  max-width: 390px;  
+}
+
+h1 {
+  text-align: center;
+  margin-top: 0;
+  font-family: 'ABeeZee'
+}
+
+main {
+  min-height: calc(100vh - 99px - 96px);   
+}
+  main a {
+      text-decoration: none;
+      color: $color-bg;
+  }
+  main a:hover {
+      text-decoration: none;
+  }
+
+.active {
+  color: $color-active;
+  cursor: default;
+}
+
+@media (max-width: 1024px) {
+  .header-menu__item {    
+    font-size: 1.2em;    
+  }
+  h1 {
+    font-size: 24px;   
+  }
+}
+
+@media (max-width: 425px) {
+  .header-menu__item {    
+    font-size: 1em;    
+  }
+  h1 {
+    font-size: 20px;   
+  }
+}
