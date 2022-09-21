@@ -81,15 +81,17 @@ export const Pagination: React.FC<Props> = ({ page, totalPages, handlePagination
           </button>
         )}
         {page < totalPages - twoPages && <div className={styles.wrapper__separator}>...</div>}
-        <button
-          onClick={() => handlePagination(totalPages)}
-          type="button"
-          className={classNames(styles.wrapper__page, {
-            [styles.active]: page === totalPages,
-          })}
-        >
-          {totalPages}
-        </button>
+        {totalPages !== 1 && (
+          <button
+            onClick={() => handlePagination(totalPages)}
+            type="button"
+            className={classNames(styles.wrapper__page, {
+              [styles.active]: page === totalPages,
+            })}
+          >
+            {totalPages}
+          </button>
+        )}
         {page !== totalPages && (
           <button
             onClick={() => handlePagination(++page)}
